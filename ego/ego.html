@@ -1,0 +1,4131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EGO ACADEMY</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237CB342'/%3E%3C/svg%3E" type="image/x-icon" />
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --ego-green: #7CB342;
+            --ego-green-dark: #558B2F;
+            --ego-green-light: #C5E1A5;
+            --ego-green-bg: #f1f8e9;
+            --ego-gray: #b1b1b1;
+            --ego-dark: #1a1a1a;
+            --ego-text: #333333;
+            --ego-text-light: #666666;
+            --ego-bg: #f5f7f5;
+            --ego-white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-smooth: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+            background: var(--ego-bg);
+            color: var(--ego-dark);
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--ego-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--ego-green-light);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ego-green);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* ===== Top Navigation ===== */
+        .top-nav {
+            background: var(--ego-white);
+            border-bottom: 1px solid var(--ego-gray);
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .nav-logo {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--ego-dark);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 6px 0;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            border-bottom-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        .nav-menu a.active {
+            border-bottom-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            background: var(--ego-bg);
+            border-radius: 24px;
+            padding: 4px 4px 4px 16px;
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-search:focus-within {
+            border-color: var(--ego-green);
+            background: var(--ego-white);
+            box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
+        }
+
+        .nav-search input {
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--ego-dark);
+            outline: none;
+            width: 180px;
+        }
+
+        .nav-search input::placeholder {
+            color: #aaa;
+        }
+
+        .nav-search button {
+            background: var(--ego-green);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-search button:hover {
+            background: var(--ego-green-dark);
+            transform: scale(1.02);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-right .user-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--ego-dark);
+        }
+
+        .avatar-placeholder {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--ego-green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--ego-green-dark);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .avatar-placeholder:hover {
+            transform: scale(1.08);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--ego-dark);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .page-container {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 32px;
+        }
+
+        .cover-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            display: block;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .progress-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            align-items: center;
+        }
+
+        .progress-circle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(var(--ego-green) 33%, #eee 33%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .progress-circle .inner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--ego-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ego-green-dark);
+        }
+
+        .progress-details h3 {
+            margin-bottom: 6px;
+        }
+
+        .progress-details .sub {
+            color: var(--ego-text-light);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .progress-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--ego-text);
+        }
+
+        .progress-stats .stat-item .num {
+            font-weight: 600;
+            color: var(--ego-dark);
+        }
+
+        .progress-bar-wrap {
+            width: 100%;
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-wrap .fill {
+            height: 100%;
+            background: var(--ego-green);
+            border-radius: 3px;
+            transition: width 0.8s ease;
+            width: 33%;
+        }
+
+        .welcome-banner {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--ego-green);
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .welcome-banner .banner-content h1 {
+            margin-bottom: 8px;
+        }
+
+        .welcome-banner .banner-content p {
+            color: var(--ego-text);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-top: 6px;
+        }
+
+        .welcome-banner .banner-content ul {
+            margin: 8px 0 0 20px;
+            color: var(--ego-text);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .welcome-banner .banner-content ul li b {
+            color: var(--ego-dark);
+        }
+
+        .welcome-banner .banner-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-top: 4px;
+        }
+
+        .welcome-banner .banner-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .welcome-banner .banner-stats span {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            background: var(--ego-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: var(--ego-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .btn-primary:hover {
+            background: var(--ego-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 179, 66, 0.35);
+            color: #fff;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--ego-green);
+            border: 2px solid var(--ego-green);
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .btn-secondary:hover {
+            background: var(--ego-green);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 179, 66, 0.25);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 6px 18px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: var(--ego-white);
+            color: var(--ego-text);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .filter-btn .badge {
+            background: rgba(0, 0, 0, 0.08);
+            padding: 0px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--ego-text-light);
+        }
+
+        .filter-btn.active .badge {
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        .filter-btn.active {
+            background: var(--ego-green);
+            color: #fff;
+            border-color: var(--ego-green);
+        }
+
+        .panel-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ego-dark);
+            margin: 30px 0 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .panel-title .title-icon {
+            font-size: 28px;
+        }
+
+        .panel-subtitle {
+            font-size: 15px;
+            color: var(--ego-text-light);
+            margin-bottom: 16px;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 16px 0 28px 0;
+        }
+
+        .curriculum-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .curriculum-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--ego-green-light);
+        }
+
+        .curriculum-card .card-image-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background: var(--ego-green-light);
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .curriculum-card:hover .card-image-img {
+            transform: scale(1.02);
+        }
+
+        .curriculum-card .card-body {
+            padding: 14px 16px 18px;
+        }
+
+        .curriculum-card .card-body .card-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--ego-dark);
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 44px;
+        }
+
+        .curriculum-card .card-body .card-meta {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .curriculum-card .card-body .card-meta .tag {
+            background: var(--ego-bg);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--ego-text-light);
+            font-weight: 500;
+        }
+
+        .curriculum-card .card-body .card-meta .tag.green {
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+        }
+
+        .curriculum-card .card-body .card-meta .tag.orange {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .curriculum-card .card-body .card-meta .tag.purple {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .curriculum-card .card-body .progress-bar-sm {
+            width: 100%;
+            height: 4px;
+            background: #eee;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .curriculum-card .card-body .progress-bar-sm .fill {
+            height: 100%;
+            background: var(--ego-green);
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        .curriculum-card .card-body .progress-text {
+            font-size: 12px;
+            color: var(--ego-text-light);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .course-list {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .course-list-header {
+            padding: 14px 20px;
+            background: var(--ego-bg);
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 16px;
+            flex-wrap: wrap;
+            transition: var(--transition-smooth);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .course-item:last-child {
+            border-bottom: none;
+        }
+
+        .course-item:hover {
+            background: var(--ego-green-bg);
+            border-left-color: var(--ego-green);
+            padding-left: 24px;
+        }
+
+        .course-icon-placeholder {
+            width: 44px;
+            height: 44px;
+            background: var(--ego-green-light);
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--ego-green-dark);
+        }
+
+        .course-info {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .course-info .title {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--ego-dark);
+        }
+
+        .course-info .meta {
+            color: var(--ego-text-light);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .course-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .course-status.available {
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+        }
+
+        .course-status.finished {
+            background: #e8eaf6;
+            color: #3949ab;
+        }
+
+        .course-status.in-progress {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .announcement-bar {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 16px 24px;
+            border: 1px solid #eee;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            border-left: 4px solid var(--ego-green);
+        }
+
+        .announcement-bar .announce-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .announcement-bar .announce-text {
+            flex: 1;
+            font-size: 14px;
+            color: var(--ego-text);
+        }
+
+        .announcement-bar .announce-text strong {
+            color: var(--ego-dark);
+        }
+
+        .announcement-bar .announce-link {
+            color: var(--ego-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .announcement-bar .announce-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background: var(--ego-white);
+            border-top: 1px solid var(--ego-gray);
+            padding: 18px 24px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #999;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer a:hover {
+            color: var(--ego-green);
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--ego-gray);
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ego-dark);
+        }
+
+        .page-header .breadcrumb {
+            font-size: 14px;
+            color: var(--ego-text-light);
+        }
+
+        .page-header .breadcrumb a {
+            color: var(--ego-green);
+            text-decoration: none;
+        }
+
+        .page-header .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-header .export-btn {
+            padding: 8px 20px;
+            background: var(--ego-white);
+            color: var(--ego-text);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .page-header .export-btn:hover {
+            border-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        /* ===== Product Trainings ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .product-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--ego-green-light);
+        }
+
+        .product-card .card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .product-card .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: var(--ego-green-light);
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .card-image {
+            transform: scale(1.02);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            z-index: 2;
+        }
+
+        .card-badge.hot {
+            background: #FF6B35;
+        }
+        .card-badge.new {
+            background: #2196F3;
+        }
+        .card-badge.recommended {
+            background: #FFB300;
+            color: #333;
+        }
+
+        .bookmark-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.85);
+            color: #ccc;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+        }
+
+        .bookmark-btn:hover {
+            transform: scale(1.1);
+            background: #fff;
+        }
+        .bookmark-btn.saved {
+            color: #FFB300;
+        }
+
+        .product-card .card-body {
+            padding: 16px 18px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card .card-body .card-number {
+            font-size: 11px;
+            color: var(--ego-text-light);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .product-card .card-body .card-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--ego-dark);
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 48px;
+        }
+
+        .product-card .card-body .card-description {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 36px;
+        }
+
+        .product-card .card-body .card-meta {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .product-card .card-body .card-meta .tag {
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            background: var(--ego-bg);
+            color: var(--ego-text-light);
+        }
+
+        .product-card .card-body .card-meta .tag.green {
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+        }
+
+        .product-card .card-body .card-meta .tag.orange {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .product-card .card-body .card-meta .tag.purple {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .product-card .card-body .card-meta .tag.blue {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .product-card .card-body .card-meta .tag.difficulty-beginner {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .product-card .card-body .card-meta .tag.difficulty-intermediate {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .product-card .card-body .card-meta .tag.difficulty-advanced {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+            margin-bottom: 4px;
+        }
+
+        .progress-bar-sm {
+            flex: 1;
+            height: 4px;
+            background: #eee;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-sm .fill {
+            height: 100%;
+            background: var(--ego-green);
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: var(--ego-text-light);
+            min-width: 36px;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+            flex-shrink: 0;
+        }
+
+        .btn-continue {
+            flex: 1;
+            padding: 8px 16px;
+            background: var(--ego-green);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            text-align: center;
+            min-height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-continue:hover {
+            background: var(--ego-green-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-details {
+            padding: 8px 16px;
+            background: transparent;
+            color: var(--ego-text-light);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            text-align: center;
+            min-height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+        }
+
+        .btn-details:hover {
+            border-color: var(--ego-green);
+            color: var(--ego-green);
+        }
+
+        .results-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .results-summary .count {
+            font-size: 14px;
+            color: var(--ego-text-light);
+        }
+        .results-summary .count strong {
+            color: var(--ego-dark);
+        }
+
+        .results-summary .sort {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--ego-text-light);
+        }
+
+        .results-summary .sort select {
+            padding: 4px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: var(--ego-white);
+            color: var(--ego-dark);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .results-summary .sort select:focus {
+            border-color: var(--ego-green);
+        }
+
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            background: var(--ego-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state.show {
+            display: flex;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--ego-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--ego-text-light);
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        .btn-clear-filters {
+            padding: 10px 28px;
+            background: var(--ego-green);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .btn-clear-filters:hover {
+            background: var(--ego-green-dark);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 32px 0;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: var(--ego-white);
+            color: var(--ego-text);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            min-height: 40px;
+        }
+
+        .pagination button:hover:not(:disabled):not(.active) {
+            border-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        .pagination button.active {
+            background: var(--ego-green);
+            color: #fff;
+            border-color: var(--ego-green);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== Resource Center ===== */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .resource-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--ego-green-light);
+        }
+
+        .resource-card .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            background: var(--ego-green-light);
+            display: block;
+            transition: transform 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .resource-card:hover .card-image {
+            transform: scale(1.02);
+        }
+
+        .resource-card .card-body {
+            padding: 14px 16px 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card .card-body .card-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+            margin-bottom: 6px;
+            align-self: flex-start;
+        }
+
+        .resource-card .card-body .card-tag.orange {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .resource-card .card-body .card-tag.blue {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+        .resource-card .card-body .card-tag.purple {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+        .resource-card .card-body .card-tag.ppt {
+            background: #fff8e1;
+            color: #f57c00;
+        }
+        .resource-card .card-body .card-tag.excel {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .resource-card .card-body .card-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--ego-dark);
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 42px;
+        }
+
+        .resource-card .card-body .card-description {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            line-height: 1.5;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 36px;
+        }
+
+        .resource-card .card-body .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--ego-text-light);
+            flex-wrap: wrap;
+            padding-top: 8px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: auto;
+        }
+
+        .resource-card .card-body .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .quick-link-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 16px 12px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--ego-dark);
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--ego-green-light);
+        }
+
+        .quick-link-card .icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .quick-link-card .label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .two-column-layout {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .sidebar-resource {
+            width: 260px;
+            min-width: 260px;
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 20px 0;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-resource::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-resource::-webkit-scrollbar-thumb {
+            background: var(--ego-green-light);
+            border-radius: 2px;
+        }
+
+        .sidebar-resource .sidebar-section {
+            padding: 0 16px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-resource .sidebar-section:not(:last-child) {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 16px;
+        }
+
+        .sidebar-resource .sidebar-section .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ego-text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding: 0 4px;
+        }
+
+        .sidebar-resource .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+            color: var(--ego-text);
+            text-decoration: none;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .sidebar-resource .sidebar-item:hover {
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+        }
+
+        .sidebar-resource .sidebar-item.active {
+            background: var(--ego-green);
+            color: #fff;
+        }
+
+        .sidebar-resource .sidebar-item .item-icon {
+            font-size: 16px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar-resource .sidebar-item .item-label {
+            flex: 1;
+        }
+
+        .sidebar-resource .sidebar-item .item-count {
+            font-size: 12px;
+            color: var(--ego-text-light);
+            background: var(--ego-bg);
+            padding: 0px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .sidebar-resource .sidebar-item.active .item-count {
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+
+        .main-area {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .page-search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 6px 6px 6px 20px;
+            border: 2px solid #e0e0e0;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+
+        .page-search-bar:focus-within {
+            border-color: var(--ego-green);
+            box-shadow: 0 0 0 4px rgba(124, 179, 66, 0.12);
+        }
+
+        .page-search-bar .search-icon {
+            font-size: 18px;
+            color: var(--ego-text-light);
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .page-search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 0;
+            font-size: 15px;
+            color: var(--ego-dark);
+            outline: none;
+            font-family: inherit;
+            min-width: 80px;
+        }
+
+        .page-search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .page-search-bar .search-btn {
+            padding: 10px 28px;
+            background: var(--ego-green);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+
+        .page-search-bar .search-btn:hover {
+            background: var(--ego-green-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(124, 179, 66, 0.3);
+        }
+
+        .page-search-bar .clear-btn {
+            padding: 8px 12px;
+            background: transparent;
+            color: var(--ego-text-light);
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .page-search-bar .clear-btn:hover {
+            color: var(--ego-dark);
+        }
+
+        .page-search-bar .clear-btn.visible {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 18px 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ego-green-dark);
+            display: block;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            margin-top: 4px;
+        }
+
+        .tabs-wrapper {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ego-text-light);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn:hover {
+            color: var(--ego-dark);
+        }
+
+        .tab-btn.active {
+            color: var(--ego-green-dark);
+            border-bottom-color: var(--ego-green);
+            font-weight: 600;
+        }
+
+        .transcript-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .transcript-item {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 14px 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            cursor: pointer;
+            flex-wrap: wrap;
+        }
+
+        .transcript-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateX(4px);
+        }
+
+        .transcript-item .item-image {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            background: var(--ego-green-light);
+            flex-shrink: 0;
+            border: 1px solid #eee;
+        }
+
+        .transcript-item .item-info {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .transcript-item .item-info .item-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--ego-dark);
+        }
+
+        .transcript-item .item-info .item-meta {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .transcript-item .item-info .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .transcript-item .item-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .transcript-item .item-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .transcript-item .item-status.passed {
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+        }
+
+        .transcript-item .item-status.failed {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .transcript-item .item-status.in-progress {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .transcript-item .item-status.not-started {
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        .transcript-item .item-cert {
+            color: var(--ego-green);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border: 1px solid var(--ego-green);
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+            background: transparent;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .transcript-item .item-cert:hover {
+            background: var(--ego-green);
+            color: #fff;
+        }
+
+        .transcript-item .item-cert.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #999;
+        }
+
+        .transcript-item .item-cert.disabled:hover {
+            background: transparent;
+            color: #999;
+        }
+
+        .filter-bar-transcript {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .filter-bar-transcript .search-box {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            background: var(--ego-white);
+            border-radius: 6px;
+            padding: 0 14px;
+            border: 1px solid #ddd;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-bar-transcript .search-box:focus-within {
+            border-color: var(--ego-green);
+            box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.12);
+        }
+
+        .filter-bar-transcript .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 8px;
+            font-size: 14px;
+            color: var(--ego-dark);
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .filter-bar-transcript .search-box .search-icon {
+            color: var(--ego-text-light);
+            font-size: 16px;
+        }
+
+        .filter-bar-transcript .filter-select {
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background: var(--ego-white);
+            color: var(--ego-dark);
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+            min-width: 140px;
+        }
+
+        .filter-bar-transcript .filter-select:focus {
+            border-color: var(--ego-green);
+        }
+
+        .app-container {
+            display: flex;
+            height: calc(100vh - 72px);
+            width: 100%;
+            background: var(--ego-bg);
+        }
+
+        .sidebar {
+            width: 360px;
+            min-width: 360px;
+            background: var(--ego-white);
+            padding: 24px 22px;
+            border-right: 1px solid var(--ego-gray);
+            overflow-y: auto;
+            flex-shrink: 0;
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.02);
+            height: 100%;
+        }
+
+        .sidebar .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #edf2ea;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .calendar-header .month-label {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .sidebar .calendar-header .nav-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sidebar .calendar-header .nav-buttons button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--ego-gray);
+            background: var(--ego-white);
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+        }
+
+        .sidebar .calendar-header .nav-buttons button:hover {
+            background: var(--ego-green-bg);
+            border-color: var(--ego-green);
+            color: var(--ego-green);
+        }
+
+        .today-btn {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--ego-green-bg);
+            color: var(--ego-green);
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            margin-bottom: 16px;
+        }
+
+        .today-btn:hover {
+            background: var(--ego-green);
+            color: #fff;
+        }
+
+        .calendar-grid {
+            width: 100%;
+        }
+
+        .calendar-grid .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            padding: 6px 0 12px 0;
+            border-bottom: 1px solid #f0f5ed;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .calendar-grid .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-grid .days .day {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+            font-weight: 450;
+            width: 100%;
+            height: auto;
+            background: transparent;
+            border: none;
+            position: relative;
+            font-family: inherit;
+            padding: 0;
+        }
+
+        .calendar-grid .days .day:hover {
+            background: var(--ego-green-bg);
+            transform: scale(1.05);
+        }
+
+        .calendar-grid .days .day.other-month {
+            color: #d0d8d0;
+        }
+
+        .calendar-grid .days .day.today {
+            background: var(--ego-green);
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(124, 179, 66, 0.3);
+        }
+
+        .calendar-grid .days .day.today:hover {
+            background: var(--ego-green-dark);
+        }
+
+        .calendar-grid .days .day.selected {
+            background: var(--ego-green);
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 2px 12px rgba(124, 179, 66, 0.4);
+        }
+
+        .calendar-grid .days .day.selected:hover {
+            background: var(--ego-green-dark);
+        }
+
+        .calendar-grid .days .day.has-training::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--ego-green);
+        }
+
+        .calendar-grid .days .day.today.has-training::after {
+            background: #fff;
+        }
+
+        .calendar-grid .days .day.selected.has-training::after {
+            background: #fff;
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f0f5ed;
+            flex-wrap: wrap;
+        }
+
+        .legend .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .legend .legend-item .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--ego-green);
+        }
+
+        .legend .legend-item .dot.today-dot {
+            background: var(--ego-green);
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ego-green);
+        }
+
+        .main-content-calendar {
+            flex: 1;
+            padding: 32px 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background: var(--ego-bg);
+            height: 100%;
+        }
+
+        .main-content-calendar .date-info {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--ego-gray);
+        }
+
+        .main-content-calendar .date-info h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .main-content-calendar .date-info .subtitle {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .training-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .training-stats .stat-chip {
+            padding: 6px 16px;
+            background: var(--ego-white);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--ego-gray);
+        }
+
+        .training-stats .stat-chip strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .training-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .training-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--ego-green);
+            transition: var(--transition-smooth);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .training-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+            border-left-width: 6px;
+        }
+
+        .training-card .info {
+            flex: 1;
+        }
+
+        .training-card .info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .training-card .info .meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .training-card .info .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .training-card .badge {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .training-card .badge.required {
+            background: var(--ego-green-bg);
+            color: var(--ego-green);
+        }
+
+        .training-card .badge.elective {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .empty-state-calendar {
+            background: var(--ego-white);
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--ego-gray);
+        }
+
+        .empty-state-calendar .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-calendar h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-calendar p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 28px;
+        }
+
+        .help-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .help-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .help-card .help-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .help-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ego-dark);
+            margin-bottom: 4px;
+        }
+
+        .help-card p {
+            font-size: 13px;
+            color: var(--ego-text-light);
+        }
+
+        @media (max-width: 1024px) {
+            .welcome-banner {
+                grid-template-columns: 1fr;
+            }
+            .progress-dashboard {
+                grid-template-columns: 1fr;
+            }
+            .nav-search input {
+                width: 120px;
+            }
+            .two-column-layout {
+                flex-direction: column;
+            }
+            .sidebar-resource {
+                width: 100%;
+                min-width: unset;
+                position: static;
+                max-height: none;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+                padding: 16px 0;
+            }
+            .sidebar-resource .sidebar-section {
+                padding: 0 12px;
+                border-bottom: none !important;
+            }
+            .sidebar-resource .sidebar-section:not(:last-child) {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .sidebar-resource .sidebar-item {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 820px) {
+            .top-nav {
+                padding: 12px 20px;
+            }
+            .nav-left {
+                gap: 16px;
+            }
+            .nav-menu {
+                gap: 16px;
+            }
+            .nav-menu a {
+                font-size: 15px;
+            }
+            .content-section {
+                padding: 20px;
+            }
+            .curriculum-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            .resource-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+            .sidebar {
+                width: 280px;
+                min-width: 280px;
+                padding: 16px 14px;
+            }
+            .main-content-calendar {
+                padding: 20px 24px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                padding: 12px 0;
+                border-top: 1px solid #eee;
+                margin-top: 8px;
+            }
+            .nav-menu.open {
+                display: flex;
+            }
+            .nav-menu a {
+                font-size: 16px;
+                padding: 8px 0;
+                width: 100%;
+            }
+            .nav-search {
+                width: 100%;
+                order: 3;
+            }
+            .nav-search input {
+                width: 100%;
+            }
+            .nav-left {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .nav-right {
+                margin-left: auto;
+            }
+            .top-nav {
+                padding: 10px 16px;
+                gap: 8px;
+            }
+            .content-section {
+                padding: 16px;
+            }
+            .curriculum-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .welcome-banner {
+                padding: 20px;
+            }
+            .welcome-banner h1 {
+                font-size: 22px;
+            }
+            .course-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .progress-dashboard {
+                padding: 18px 20px;
+            }
+            .progress-circle {
+                width: 64px;
+                height: 64px;
+            }
+            .progress-circle .inner {
+                width: 48px;
+                height: 48px;
+                font-size: 16px;
+            }
+            .progress-stats {
+                gap: 12px;
+            }
+            .progress-stats .stat-item {
+                font-size: 13px;
+            }
+            .filter-bar {
+                gap: 6px;
+            }
+            .filter-btn {
+                padding: 4px 14px;
+                font-size: 12px;
+            }
+            .banner-actions {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .banner-actions .btn-primary,
+            .banner-actions .btn-secondary {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .page-header h1 {
+                font-size: 22px;
+            }
+            .results-summary {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .pagination {
+                flex-wrap: wrap;
+            }
+            .pagination button {
+                padding: 8px 14px;
+                min-height: 40px;
+                font-size: 13px;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .resource-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .sidebar-resource {
+                grid-template-columns: 1fr 1fr;
+                gap: 4px 0;
+                padding: 12px 0;
+            }
+            .sidebar-resource .sidebar-section {
+                padding: 0 8px;
+            }
+            .sidebar-resource .sidebar-item {
+                padding: 5px 8px;
+                font-size: 12px;
+            }
+            .sidebar-resource .sidebar-item .item-icon {
+                font-size: 14px;
+                width: 20px;
+            }
+            .sidebar-resource .sidebar-section .section-title {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+            .page-search-bar {
+                padding: 4px 4px 4px 16px;
+                flex-wrap: wrap;
+            }
+            .page-search-bar input {
+                font-size: 14px;
+                padding: 10px 0;
+                min-width: 120px;
+            }
+            .page-search-bar .search-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .stat-card .stat-number {
+                font-size: 24px;
+            }
+            .transcript-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .transcript-item .item-image {
+                width: 56px;
+                height: 56px;
+            }
+            .transcript-item .item-right {
+                width: 100%;
+                justify-content: flex-start;
+                margin-left: 0;
+            }
+            .filter-bar-transcript {
+                flex-direction: column;
+            }
+            .filter-bar-transcript .search-box {
+                width: 100%;
+            }
+            .filter-bar-transcript .filter-select {
+                width: 100%;
+            }
+            .tabs-wrapper {
+                gap: 2px;
+            }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+            .bookmark-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+                top: 8px;
+                right: 8px;
+            }
+            .card-badge {
+                font-size: 10px;
+                padding: 3px 10px;
+                top: 8px;
+                left: 8px;
+            }
+            .app-container {
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
+            }
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                border-right: none;
+                border-bottom: 1px solid var(--ego-gray);
+                max-height: 50vh;
+                overflow-y: auto;
+            }
+            .main-content-calendar {
+                min-height: 50vh;
+                padding: 20px 16px;
+            }
+            .help-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .top-nav {
+                padding: 8px 12px;
+            }
+            .nav-logo {
+                height: 38px;
+            }
+            .avatar-placeholder {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+            .nav-right .user-name {
+                font-size: 13px;
+            }
+            .content-section {
+                padding: 12px;
+            }
+            .page-header h1 {
+                font-size: 20px;
+            }
+            .curriculum-grid {
+                grid-template-columns: 1fr;
+            }
+            .welcome-banner {
+                padding: 16px;
+            }
+            .welcome-banner h1 {
+                font-size: 20px;
+            }
+            .panel-title {
+                font-size: 20px;
+            }
+            .progress-dashboard {
+                padding: 14px 16px;
+            }
+            .progress-circle-wrap {
+                gap: 12px;
+            }
+            .course-list-header {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+            .course-item {
+                padding: 10px 16px;
+            }
+            .course-info .title {
+                font-size: 14px;
+            }
+            .announcement-bar {
+                padding: 12px 16px;
+            }
+            .footer {
+                font-size: 12px;
+                padding: 14px 16px;
+            }
+            .banner-actions .btn-primary,
+            .banner-actions .btn-secondary {
+                font-size: 13px;
+                padding: 8px 16px;
+                width: 100%;
+                justify-content: center;
+            }
+            .filter-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+                min-height: 36px;
+            }
+            .product-card .card-image {
+                height: 140px;
+            }
+            .product-card .card-body {
+                padding: 12px 14px 16px;
+            }
+            .product-card .card-body .card-title {
+                font-size: 15px;
+                min-height: 40px;
+            }
+            .product-card .card-body .card-description {
+                font-size: 12px;
+                min-height: 32px;
+            }
+            .card-actions {
+                flex-direction: column;
+            }
+            .btn-continue,
+            .btn-details {
+                padding: 10px 16px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+            .pagination button {
+                padding: 6px 12px;
+                font-size: 12px;
+                min-height: 36px;
+            }
+            .resource-card .card-image {
+                height: 110px;
+            }
+            .resource-card .card-body {
+                padding: 10px 12px 14px;
+            }
+            .quick-links {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .quick-link-card {
+                padding: 12px 8px;
+            }
+            .quick-link-card .icon {
+                font-size: 22px;
+            }
+            .quick-link-card .label {
+                font-size: 11px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 14px 12px;
+            }
+            .stat-card .stat-number {
+                font-size: 20px;
+            }
+            .stat-card .stat-label {
+                font-size: 11px;
+            }
+            .transcript-item {
+                padding: 12px 14px;
+            }
+            .transcript-item .item-image {
+                width: 48px;
+                height: 48px;
+            }
+            .transcript-item .item-info .item-title {
+                font-size: 14px;
+            }
+            .transcript-item .item-info .item-meta {
+                font-size: 12px;
+                gap: 8px;
+            }
+            .tab-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            .page-header .export-btn {
+                font-size: 13px;
+                padding: 6px 16px;
+            }
+            .transcript-item .item-status {
+                font-size: 11px;
+                padding: 3px 10px;
+            }
+            .transcript-item .item-cert {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+            .sidebar-resource {
+                grid-template-columns: 1fr 1fr;
+                padding: 8px 0;
+            }
+            .sidebar-resource .sidebar-item {
+                font-size: 11px;
+                padding: 4px 6px;
+            }
+            .sidebar-resource .sidebar-item .item-icon {
+                font-size: 12px;
+                width: 18px;
+            }
+            .page-search-bar {
+                padding: 4px 4px 4px 12px;
+            }
+            .page-search-bar input {
+                font-size: 13px;
+                padding: 8px 0;
+            }
+            .page-search-bar .search-btn {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+            .help-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .sidebar {
+                padding: 12px 12px;
+                max-height: 45vh;
+            }
+            .sidebar .calendar-header .month-label {
+                font-size: 17px;
+            }
+            .calendar-grid .days .day {
+                font-size: 13px;
+            }
+            .main-content-calendar {
+                padding: 16px 12px;
+                min-height: 45vh;
+            }
+            .main-content-calendar .date-info h2 {
+                font-size: 18px;
+            }
+            .training-card {
+                padding: 14px 16px;
+            }
+            .training-card .info h3 {
+                font-size: 14px;
+            }
+            .training-card .info .meta {
+                font-size: 12px;
+                gap: 10px;
+            }
+            .empty-state-calendar {
+                padding: 40px 20px;
+            }
+            .empty-state-calendar .icon {
+                font-size: 36px;
+            }
+            .empty-state-calendar h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Top Navigation ===== -->
+    <header class="top-nav" role="banner">
+        <div class="nav-left">
+            <img src="LOGO.png" alt="EGO Academy Logo" class="nav-logo" />
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu" role="menubar">
+                <li role="none"><a href="#" role="menuitem" data-page="homepage" class="active">Homepage</a></li>
+                <li role="none"><a href="#" role="menuitem" data-page="product-trainings">Product trainings</a></li>
+                <li role="none"><a href="#" role="menuitem" data-page="resource-center">Resource center</a></li>
+                <li role="none"><a href="#" role="menuitem" data-page="my-transcript">My transcript</a></li>
+                <li role="none"><a href="#" role="menuitem" data-page="training-calendar">Training Calendar</a></li>
+                <li role="none"><a href="#" role="menuitem" data-page="help">Help</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="nav-search" role="search">
+                <input type="text" id="topSearchInput" placeholder="Search..." aria-label="Search" />
+                <button id="topSearchBtn" aria-label="Submit search">🔍</button>
+            </div>
+            <span class="user-name">EGO Support</span>
+            <span class="avatar-placeholder" role="img" aria-label="User avatar">E</span>
+        </div>
+    </header>
+
+    <!-- ===== PAGE: HOMEPAGE ===== -->
+    <div class="page-container active" id="page-homepage">
+        <main class="content-section" role="main">
+            <img src="封面.png" alt="EGO Academy Service Training cover image" class="cover-image" loading="lazy" />
+            <section class="progress-dashboard" aria-label="Learning progress overview">
+                <div class="progress-circle-wrap">
+                    <div class="progress-circle" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
+                        <span class="inner">33%</span>
+                    </div>
+                    <div>
+                        <h3>Your Learning Journey</h3>
+                        <p class="sub">Keep going! You're making great progress.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="progress-stats">
+                        <span class="stat-item">✅ <span class="num">8</span> Completed</span>
+                        <span class="stat-item">⏳ <span class="num">3</span> In Progress</span>
+                        <span class="stat-item">📚 <span class="num">13</span> Available</span>
+                        <span class="stat-item">🏆 <span class="num">1</span> Certificates</span>
+                    </div>
+                    <div class="progress-bar-wrap"><div class="fill" style="width:33%"></div></div>
+                </div>
+            </section>
+            <div class="welcome-banner">
+                <div class="banner-content">
+                    <h1>Service Training</h1>
+                    <p>The following service trainings are designed to equip EGO service technicians with technical and procedural service knowledge while maintaining a uniform process for both technicians and customers alike.</p>
+                    <p>Affiliated coursework falls under the Service Curriculum and Service Courses headers:</p>
+                    <ul>
+                        <li><b>Service Curriculum</b> contains pre-set, categorized service training curricula set forth by EGO.</li>
+                        <li><b>Service Courses</b> contain all service training courses in a complete list, uncategorized by curricula they may fall under.</li>
+                    </ul>
+                    <p>Through completing these trainings, you are well on your way to becoming a stellar EGO service technician.</p>
+                    <div class="banner-stats">
+                        <span>📚 24 Courses</span>
+                        <span>🎓 1,234 Graduates</span>
+                        <span>⭐ 4.8 Avg Rating</span>
+                    </div>
+                </div>
+                <div class="banner-actions">
+                    <a href="#" class="btn-primary" data-page-link="product-trainings">Start Learning →</a>
+                    <a href="#" class="btn-secondary" data-page-link="product-trainings">View All Courses</a>
+                </div>
+            </div>
+            <h2 class="panel-title"><span class="title-icon">📚</span> Service Curriculum</h2>
+            <div class="filter-bar" role="tablist">
+                <button class="filter-btn active" role="tab" aria-selected="true">All <span class="badge">4</span></button>
+                <button class="filter-btn" role="tab" aria-selected="false">📚 Curriculum <span class="badge">4</span></button>
+                <button class="filter-btn" role="tab" aria-selected="false">💻 Online Course <span class="badge">0</span></button>
+                <button class="filter-btn" role="tab" aria-selected="false">🏫 In-Person <span class="badge">0</span></button>
+                <button class="filter-btn" role="tab" aria-selected="false">✅ Finished <span class="badge">1</span></button>
+                <button class="filter-btn" role="tab" aria-selected="false">🔄 In Progress <span class="badge">2</span></button>
+            </div>
+            <div class="curriculum-grid">
+                <div class="curriculum-card">
+                    <img src="A1.png" alt="EGO Theory" class="card-image-img" loading="lazy" />
+                    <div class="card-body">
+                        <div class="card-title">EGO Theory</div>
+                        <div class="card-meta">
+                            <span class="tag green">Curriculum</span>
+                            <span class="tag">Beginner</span>
+                            <span class="tag">⏱️ 2.5h</span>
+                        </div>
+                        <div class="progress-bar-sm"><div class="fill" style="width:60%"></div></div>
+                        <span class="progress-text">60% Complete</span>
+                    </div>
+                </div>
+                <div class="curriculum-card">
+                    <img src="A2.png" alt="Bronze" class="card-image-img" loading="lazy" />
+                    <div class="card-body">
+                        <div class="card-title">Bronze</div>
+                        <div class="card-meta">
+                            <span class="tag green">Curriculum</span>
+                            <span class="tag purple">Finished</span>
+                            <span class="tag">⏱️ 4.0h</span>
+                        </div>
+                        <div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div>
+                        <span class="progress-text">✅ Completed</span>
+                    </div>
+                </div>
+                <div class="curriculum-card">
+                    <img src="A3.png" alt="Silver Prerequisites" class="card-image-img" loading="lazy" />
+                    <div class="card-body">
+                        <div class="card-title">Silver Prerequisites</div>
+                        <div class="card-meta">
+                            <span class="tag green">Curriculum</span>
+                            <span class="tag">Intermediate</span>
+                            <span class="tag">⏱️ 3.0h</span>
+                        </div>
+                        <div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div>
+                        <span class="progress-text">Not Started</span>
+                    </div>
+                </div>
+                <div class="curriculum-card">
+                    <img src="A4.png" alt="Silver School" class="card-image-img" loading="lazy" />
+                    <div class="card-body">
+                        <div class="card-title">Silver School</div>
+                        <div class="card-meta">
+                            <span class="tag orange">In-Person</span>
+                            <span class="tag">Advanced</span>
+                            <span class="tag">⏱️ 8.0h</span>
+                        </div>
+                        <div style="font-size:13px;color:#888;margin-top:4px;">Currently no appointments available</div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="panel-title"><span class="title-icon">📖</span> Service Courses</h2>
+            <div class="panel-subtitle">
+                <a href="#" class="btn-secondary" style="display:inline-flex;" data-page-link="product-trainings">See all Service Courses →</a>
+            </div>
+            <div class="course-list">
+                <div class="course-list-header"><span>📚</span> Service Courses <span style="font-weight:400;font-size:13px;color:#999;margin-left:auto;">12 courses total</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">🧰</span><div class="course-info"><div class="title">EGO Toolbox Overview</div><div class="meta">Online Course · English (US) · 1.0h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">📦</span><div class="course-info"><div class="title">Service Packages</div><div class="meta">Online Course · English (US) · 45 min</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">📋</span><div class="course-info"><div class="title">EGO Warranty Policy</div><div class="meta">Online Course · English (US) · 1.0h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">🔧</span><div class="course-info"><div class="title">Basic Power Tool Maintenance</div><div class="meta">Online Course · English (US) · 1.5h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">⚡</span><div class="course-info"><div class="title">Electrical Safety Fundamentals</div><div class="meta">Online Course · English (US) · 1.0h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">🔋</span><div class="course-info"><div class="title">Battery Technology &amp; Charging Systems</div><div class="meta">Online Course · English (US) · 2.0h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">🛡️</span><div class="course-info"><div class="title">Workplace Safety &amp; PPE Guidelines</div><div class="meta">Online Course · English (US) · 45 min</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">📊</span><div class="course-info"><div class="title">Service Documentation &amp; Reporting</div><div class="meta">Online Course · English (US) · 1.5h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">🔄</span><div class="course-info"><div class="title">Customer Service Excellence</div><div class="meta">Online Course · English (US) · 2.0h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">📈</span><div class="course-info"><div class="title">Technical Troubleshooting Basics</div><div class="meta">Online Course · English (US) · 1.5h</div></div><span class="course-status available">Available</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">💬</span><div class="course-info"><div class="title">EGO Service Communication (SSC)</div><div class="meta">Online Course · English (US) · 1.5h</div></div><span class="course-status finished">Finished</span></div>
+                <div class="course-item"><span class="course-icon-placeholder">🔩</span><div class="course-info"><div class="title">Engine Assembly &amp; Disassembly Techniques</div><div class="meta">Online Course · English (US) · 2.5h</div></div><span class="course-status in-progress">In Progress</span></div>
+            </div>
+            <div class="announcement-bar" role="alert">
+                <span class="announce-icon">📢</span>
+                <div class="announce-text"><strong>New:</strong> Introduction to Fuel Injection Webinar — Multiple dates available. <a href="#" class="announce-link">Learn more →</a></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== PAGE: PRODUCT TRAININGS ===== -->
+    <div class="page-container" id="page-product-trainings">
+        <main class="content-section" role="main">
+            <div class="page-header">
+                <h1>Product Trainings</h1>
+                <div class="breadcrumb"><a href="#">Home</a> / Product Trainings</div>
+            </div>
+            <img src="封面.png" alt="EGO Product Trainings" class="cover-image" loading="lazy" />
+            <div class="filter-bar" role="tablist">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All <span class="badge">9</span></button>
+                <button class="filter-btn" data-filter="curriculum" role="tab" aria-selected="false">📚 Curriculum <span class="badge">4</span></button>
+                <button class="filter-btn" data-filter="online" role="tab" aria-selected="false">💻 Online Course <span class="badge">3</span></button>
+                <button class="filter-btn" data-filter="inperson" role="tab" aria-selected="false">🏫 In-Person <span class="badge">2</span></button>
+                <button class="filter-btn" data-filter="finished" role="tab" aria-selected="false">✅ Finished <span class="badge">2</span></button>
+                <button class="filter-btn" data-filter="progress" role="tab" aria-selected="false">🔄 In Progress <span class="badge">3</span></button>
+            </div>
+            <div class="results-summary">
+                <div class="count" id="ptResultCount"><strong>9</strong> results found</div>
+                <div class="sort">
+                    <label for="ptSortSelect">Sorted by:</label>
+                    <select id="ptSortSelect">
+                        <option value="name">Name</option>
+                        <option value="progress">Progress</option>
+                        <option value="duration">Duration</option>
+                    </select>
+                </div>
+            </div>
+            <div class="product-grid" id="ptGrid">
+                <!-- 9 product cards -->
+                <div class="product-card" data-type="curriculum" data-status="progress">
+                    <div class="card-image-wrapper">
+                        <img src="B1.png" alt="Snow Blower" class="card-image" loading="lazy" />
+                        <span class="card-badge hot">🔥 Popular</span>
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-001</div>
+                        <div class="card-title">Snow Blower Training</div>
+                        <p class="card-description">Master the operation and maintenance of EGO snow blowers for all winter conditions.</p>
+                        <div class="card-meta">
+                            <span class="tag green">📚 Curriculum</span>
+                            <span class="tag difficulty-intermediate">🟠 Intermediate</span>
+                            <span class="tag">⏱️ 2.5h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:75%"></div></div>
+                            <span class="progress-text">75%</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Continue Learning →</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="curriculum" data-status="progress">
+                    <div class="card-image-wrapper">
+                        <img src="B2.png" alt="Batteries & Chargers" class="card-image" loading="lazy" />
+                        <span class="card-badge new">✨ New</span>
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-002</div>
+                        <div class="card-title">Batteries &amp; Chargers Training</div>
+                        <p class="card-description">Understand EGO battery technology, charging systems, and proper maintenance practices.</p>
+                        <div class="card-meta">
+                            <span class="tag green">📚 Curriculum</span>
+                            <span class="tag difficulty-beginner">🟢 Beginner</span>
+                            <span class="tag">⏱️ 1.5h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:30%"></div></div>
+                            <span class="progress-text">30%</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Continue Learning →</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="online" data-status="notstarted">
+                    <div class="card-image-wrapper">
+                        <img src="B3.png" alt="Leaf Blower" class="card-image" loading="lazy" />
+                        <span class="card-badge recommended">⭐ Recommended</span>
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-003</div>
+                        <div class="card-title">Leaf Blower Training</div>
+                        <p class="card-description">Learn proper techniques for operating EGO leaf blowers efficiently and safely.</p>
+                        <div class="card-meta">
+                            <span class="tag blue">💻 Online Course</span>
+                            <span class="tag difficulty-intermediate">🟠 Intermediate</span>
+                            <span class="tag">⏱️ 2.0h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div>
+                            <span class="progress-text">0%</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Start Learning →</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="online" data-status="finished">
+                    <div class="card-image-wrapper">
+                        <img src="B4.png" alt="String Trimmer" class="card-image" loading="lazy" />
+                        <button class="bookmark-btn saved" aria-label="Save to favorites">★</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-004</div>
+                        <div class="card-title">String Trimmer Training</div>
+                        <p class="card-description">Essential skills for operating and maintaining EGO string trimmers.</p>
+                        <div class="card-meta">
+                            <span class="tag blue">💻 Online Course</span>
+                            <span class="tag difficulty-beginner">🟢 Beginner</span>
+                            <span class="tag">⏱️ 1.0h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div>
+                            <span class="progress-text" style="color: var(--ego-green-dark);">✅</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Review Course</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="inperson" data-status="notstarted">
+                    <div class="card-image-wrapper">
+                        <img src="B5.png" alt="Ride-on Mower" class="card-image" loading="lazy" />
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-005</div>
+                        <div class="card-title">Ride-on Mower Training</div>
+                        <p class="card-description">Hands-on training for EGO ride-on mowers with certified instructors.</p>
+                        <div class="card-meta">
+                            <span class="tag orange">🏫 In-Person</span>
+                            <span class="tag difficulty-advanced">🔴 Advanced</span>
+                            <span class="tag">⏱️ 6.0h</span>
+                        </div>
+                        <div style="font-size:13px;color:#888;margin-top:4px;">Currently no appointments available</div>
+                        <div class="card-actions">
+                            <button class="btn-details" style="flex:1;text-align:center;">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="curriculum" data-status="progress">
+                    <div class="card-image-wrapper">
+                        <img src="A1.png" alt="EGO Theory" class="card-image" loading="lazy" />
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-006</div>
+                        <div class="card-title">EGO Theory</div>
+                        <p class="card-description">Foundation of EGO engineering principles and product design philosophy.</p>
+                        <div class="card-meta">
+                            <span class="tag green">📚 Curriculum</span>
+                            <span class="tag difficulty-beginner">🟢 Beginner</span>
+                            <span class="tag">⏱️ 2.5h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:60%"></div></div>
+                            <span class="progress-text">60%</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Continue Learning →</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="curriculum" data-status="finished">
+                    <div class="card-image-wrapper">
+                        <img src="A2.png" alt="Bronze" class="card-image" loading="lazy" />
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-007</div>
+                        <div class="card-title">Bronze</div>
+                        <p class="card-description">Entry-level certification covering essential EGO product knowledge.</p>
+                        <div class="card-meta">
+                            <span class="tag green">📚 Curriculum</span>
+                            <span class="tag purple">✅ Finished</span>
+                            <span class="tag">⏱️ 4.0h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:100%"></div></div>
+                            <span class="progress-text" style="color: var(--ego-green-dark);">✅</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Review Course</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="curriculum" data-status="notstarted">
+                    <div class="card-image-wrapper">
+                        <img src="A3.png" alt="Silver Prerequisites" class="card-image" loading="lazy" />
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-008</div>
+                        <div class="card-title">Silver Prerequisites</div>
+                        <p class="card-description">Prepare for Silver certification with advanced EGO product training.</p>
+                        <div class="card-meta">
+                            <span class="tag green">📚 Curriculum</span>
+                            <span class="tag difficulty-intermediate">🟠 Intermediate</span>
+                            <span class="tag">⏱️ 3.0h</span>
+                        </div>
+                        <div class="progress-wrapper">
+                            <div class="progress-bar-sm"><div class="fill" style="width:0%"></div></div>
+                            <span class="progress-text">0%</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-continue">Start Learning →</button>
+                            <button class="btn-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card" data-type="inperson" data-status="notstarted">
+                    <div class="card-image-wrapper">
+                        <img src="A4.png" alt="Silver School" class="card-image" loading="lazy" />
+                        <button class="bookmark-btn" aria-label="Save to favorites">☆</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-number">EGO-009</div>
+                        <div class="card-title">Silver School</div>
+                        <p class="card-description">Advanced in-person training for Silver certification candidates.</p>
+                        <div class="card-meta">
+                            <span class="tag orange">🏫 In-Person</span>
+                            <span class="tag difficulty-advanced">🔴 Advanced</span>
+                            <span class="tag">⏱️ 8.0h</span>
+                        </div>
+                        <div style="font-size:13px;color:#888;margin-top:4px;">Currently no appointments available</div>
+                        <div class="card-actions">
+                            <button class="btn-details" style="flex:1;text-align:center;">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state" id="ptEmptyState">
+                <div class="empty-icon">🔍</div>
+                <h3>No results found</h3>
+                <p>Try adjusting your filters or search terms</p>
+                <button class="btn-clear-filters" id="ptClearFilters">Clear all filters</button>
+            </div>
+            <div class="pagination">
+                <button disabled>‹ Previous</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>Next ›</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== PAGE: RESOURCE CENTER ===== -->
+    <div class="page-container" id="page-resource-center">
+        <main class="content-section" role="main">
+            <div class="page-header">
+                <h1>Resource Center</h1>
+                <div class="breadcrumb"><a href="#">Home</a> / Resource Center</div>
+            </div>
+            <img src="封面.png" alt="EGO Resource Center" class="cover-image" loading="lazy" />
+            <div class="two-column-layout">
+                <aside class="sidebar-resource" role="complementary">
+                    <div class="sidebar-section">
+                        <div class="section-title">📦 Product</div>
+                        <button class="sidebar-item active" data-filter="product-all"><span class="item-icon">📋</span><span class="item-label">All Products</span><span class="item-count">9</span></button>
+                        <button class="sidebar-item" data-filter="product-snow"><span class="item-icon">❄️</span><span class="item-label">Snow Blower</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-battery"><span class="item-icon">🔋</span><span class="item-label">Batteries &amp; Chargers</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-leaf"><span class="item-icon">🍃</span><span class="item-label">Leaf Blower</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-trimmer"><span class="item-icon">🌿</span><span class="item-label">String Trimmer</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-mower"><span class="item-icon">🚜</span><span class="item-label">Ride-on Mower</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-theory"><span class="item-icon">📖</span><span class="item-label">EGO Theory</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-bronze"><span class="item-icon">🥉</span><span class="item-label">Bronze</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-silver"><span class="item-icon">🥈</span><span class="item-label">Silver Prerequisites</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="product-silverschool"><span class="item-icon">🏫</span><span class="item-label">Silver School</span><span class="item-count">1</span></button>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="section-title">🌐 Language</div>
+                        <button class="sidebar-item active" data-filter="lang-all"><span class="item-icon">🌍</span><span class="item-label">All Languages</span><span class="item-count">9</span></button>
+                        <button class="sidebar-item" data-filter="lang-en"><span class="item-icon">🇺🇸</span><span class="item-label">English (US)</span><span class="item-count">9</span></button>
+                        <button class="sidebar-item" data-filter="lang-fr"><span class="item-icon">🇫🇷</span><span class="item-label">French (CA)</span><span class="item-count">0</span></button>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="section-title">📄 Material Type</div>
+                        <button class="sidebar-item active" data-filter="type-all"><span class="item-icon">📋</span><span class="item-label">All Types</span><span class="item-count">9</span></button>
+                        <button class="sidebar-item" data-filter="type-pdf"><span class="item-icon">📄</span><span class="item-label">PDF</span><span class="item-count">5</span></button>
+                        <button class="sidebar-item" data-filter="type-video"><span class="item-icon">📹</span><span class="item-label">Video</span><span class="item-count">1</span></button>
+                        <button class="sidebar-item" data-filter="type-ppt"><span class="item-icon">📽️</span><span class="item-label">PPT</span><span class="item-count">2</span></button>
+                        <button class="sidebar-item" data-filter="type-excel"><span class="item-icon">📊</span><span class="item-label">Excel</span><span class="item-count">2</span></button>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="section-title">📚 Learning Mode</div>
+                        <button class="sidebar-item active" data-filter="mode-all"><span class="item-icon">📋</span><span class="item-label">All Modes</span><span class="item-count">9</span></button>
+                        <button class="sidebar-item" data-filter="mode-online"><span class="item-icon">💻</span><span class="item-label">Online Course</span><span class="item-count">6</span></button>
+                        <button class="sidebar-item" data-filter="mode-inperson"><span class="item-icon">🏫</span><span class="item-label">In-Person</span><span class="item-count">2</span></button>
+                        <button class="sidebar-item" data-filter="mode-curriculum"><span class="item-icon">📚</span><span class="item-label">Curriculum</span><span class="item-count">7</span></button>
+                    </div>
+                </aside>
+                <div class="main-area">
+                    <div class="page-search-bar" role="search">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="rcSearchInput" placeholder="Search for resources by name, description, or tag..." aria-label="Search resources" />
+                        <button class="clear-btn" id="rcClearBtn" aria-label="Clear search">✕</button>
+                        <button class="search-btn" id="rcSearchBtn">Search</button>
+                    </div>
+                    <div class="quick-links">
+                        <a href="#" class="quick-link-card"><span class="icon">📄</span><span class="label">Product Manuals</span></a>
+                        <a href="#" class="quick-link-card"><span class="icon">📹</span><span class="label">Video Tutorials</span></a>
+                        <a href="#" class="quick-link-card"><span class="icon">📋</span><span class="label">Service Bulletins</span></a>
+                        <a href="#" class="quick-link-card"><span class="icon">📊</span><span class="label">Technical Specs</span></a>
+                        <a href="#" class="quick-link-card"><span class="icon">🛠️</span><span class="label">Troubleshooting</span></a>
+                    </div>
+                    <div class="results-summary">
+                        <div class="count" id="rcResultCount"><strong>9</strong> resources found</div>
+                        <div class="sort">
+                            <label for="rcSortSelect">Sorted by:</label>
+                            <select id="rcSortSelect">
+                                <option value="name">Name</option>
+                                <option value="date">Newest</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="resource-grid" id="rcGrid">
+                        <div class="resource-card" data-product="product-snow" data-lang="lang-en" data-type="type-pdf" data-mode="mode-curriculum">
+                            <img src="B1.png" alt="Snow Blower" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag">📄 Manual</span>
+                                <div class="card-title">Snow Blower</div>
+                                <p class="card-description">Complete user manual and safety guidelines for EGO snow blowers.</p>
+                                <div class="card-meta"><span>📅 Aug 2026</span><span>📄 PDF (4.2 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-battery" data-lang="lang-en" data-type="type-video" data-mode="mode-online">
+                            <img src="B2.png" alt="Batteries & Chargers" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag orange">📹 Video</span>
+                                <div class="card-title">Batteries &amp; Chargers</div>
+                                <p class="card-description">Video guide on proper battery care, charging, and storage practices.</p>
+                                <div class="card-meta"><span>📅 Jul 2026</span><span>▶️ 12:34 min</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-leaf" data-lang="lang-en" data-type="type-pdf" data-mode="mode-curriculum">
+                            <img src="B3.png" alt="Leaf Blower" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag blue">📋 Bulletin</span>
+                                <div class="card-title">Leaf Blower</div>
+                                <p class="card-description">Service bulletin and maintenance updates for EGO leaf blowers.</p>
+                                <div class="card-meta"><span>📅 Aug 2026</span><span>📄 PDF (1.1 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-trimmer" data-lang="lang-en" data-type="type-pdf" data-mode="mode-curriculum">
+                            <img src="B4.png" alt="String Trimmer" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag purple">📊 Specs</span>
+                                <div class="card-title">String Trimmer</div>
+                                <p class="card-description">Comprehensive technical specifications for EGO string trimmers.</p>
+                                <div class="card-meta"><span>📅 Jun 2026</span><span>📄 PDF (3.8 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-mower" data-lang="lang-en" data-type="type-pdf" data-mode="mode-inperson">
+                            <img src="B5.png" alt="Ride-on Mower" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag orange">🛠️ Troubleshooting</span>
+                                <div class="card-title">Ride-on Mower</div>
+                                <p class="card-description">Diagnose and resolve common issues with EGO ride-on mowers.</p>
+                                <div class="card-meta"><span>📅 Jul 2026</span><span>📄 PDF (2.5 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-theory" data-lang="lang-en" data-type="type-ppt" data-mode="mode-curriculum">
+                            <img src="A1.png" alt="EGO Theory" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag ppt">📽️ PPT</span>
+                                <div class="card-title">EGO Theory</div>
+                                <p class="card-description">Training presentation covering EGO product fundamentals and core technology.</p>
+                                <div class="card-meta"><span>📅 Aug 2026</span><span>📽️ PPT (5.6 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-bronze" data-lang="lang-en" data-type="type-excel" data-mode="mode-curriculum">
+                            <img src="A2.png" alt="Bronze" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag excel">📊 Excel</span>
+                                <div class="card-title">Bronze</div>
+                                <p class="card-description">Course enrollment tracker and completion data for Bronze certification.</p>
+                                <div class="card-meta"><span>📅 Jul 2026</span><span>📊 XLSX (1.8 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-silver" data-lang="lang-en" data-type="type-ppt" data-mode="mode-curriculum">
+                            <img src="A3.png" alt="Silver Prerequisites" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag ppt">📽️ PPT</span>
+                                <div class="card-title">Silver Prerequisites</div>
+                                <p class="card-description">Training presentation for Silver certification prerequisites.</p>
+                                <div class="card-meta"><span>📅 Jun 2026</span><span>📽️ PPT (7.2 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                        <div class="resource-card" data-product="product-silverschool" data-lang="lang-en" data-type="type-excel" data-mode="mode-inperson">
+                            <img src="A4.png" alt="Silver School" class="card-image" loading="lazy" />
+                            <div class="card-body">
+                                <span class="card-tag excel">📊 Excel</span>
+                                <div class="card-title">Silver School</div>
+                                <p class="card-description">Schedule, attendance tracking, and grading for Silver School program.</p>
+                                <div class="card-meta"><span>📅 Aug 2026</span><span>📊 XLSX (2.4 MB)</span><span>🇺🇸 EN</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="empty-state" id="rcEmptyState">
+                        <div class="empty-icon">🔍</div>
+                        <h3>No resources found</h3>
+                        <p>Try adjusting your filters or search terms</p>
+                        <button class="btn-clear-filters" id="rcClearFilters">Clear all filters</button>
+                    </div>
+                    <div class="pagination">
+                        <button disabled>‹ Previous</button>
+                        <button class="active">1</button>
+                        <button>Next ›</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== PAGE: MY TRANSCRIPT ===== -->
+    <div class="page-container" id="page-my-transcript">
+        <main class="content-section" role="main">
+            <div class="page-header">
+                <h1>My Transcript</h1>
+                <div class="breadcrumb"><a href="#">Home</a> / My Transcript</div>
+                <button class="export-btn" id="exportBtn">📥 Export as PDF</button>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-number">9</span><span class="stat-label">Total Courses</span></div>
+                <div class="stat-card"><span class="stat-number">4</span><span class="stat-label">Completed</span></div>
+                <div class="stat-card"><span class="stat-number">3</span><span class="stat-label">In Progress</span></div>
+                <div class="stat-card"><span class="stat-number">2</span><span class="stat-label">Not Started</span></div>
+                <div class="stat-card"><span class="stat-number">100%</span><span class="stat-label">Avg. Completion</span></div>
+                <div class="stat-card"><span class="stat-number">3</span><span class="stat-label">Certificates Earned</span></div>
+            </div>
+            <div class="tabs-wrapper" role="tablist">
+                <button class="tab-btn active" role="tab" aria-selected="true" data-tab="all">All</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="completed">✅ Completed</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="inprogress">🔄 In Progress</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="notstarted">⏳ Not Started</button>
+            </div>
+            <div class="filter-bar-transcript">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="mtSearchInput" placeholder="Search by course name..." />
+                </div>
+                <select class="filter-select" id="mtSortSelect">
+                    <option value="date">Sort by: Recent</option>
+                    <option value="name">Sort by: Name</option>
+                    <option value="progress">Sort by: Progress</option>
+                </select>
+            </div>
+            <div class="transcript-list" id="mtList">
+                <div class="transcript-item" data-status="passed">
+                    <img src="B1.png" alt="Snow Blower" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Snow Blower</div>
+                        <div class="item-meta"><span>📅 Completed: Aug 15, 2026</span><span>📚 Curriculum</span><span>⏱️ 2.5h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status passed">✅ Completed</span>
+                        <button class="item-cert">📄 Get Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="passed">
+                    <img src="B2.png" alt="Batteries & Chargers" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Batteries &amp; Chargers</div>
+                        <div class="item-meta"><span>📅 Completed: Aug 10, 2026</span><span>📚 Curriculum</span><span>⏱️ 1.5h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status passed">✅ Completed</span>
+                        <button class="item-cert">📄 Get Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="passed">
+                    <img src="B3.png" alt="Leaf Blower" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Leaf Blower</div>
+                        <div class="item-meta"><span>📅 Completed: Aug 05, 2026</span><span>📚 Online Course</span><span>⏱️ 2.0h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status passed">✅ Completed</span>
+                        <button class="item-cert">📄 Get Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="passed">
+                    <img src="B4.png" alt="String Trimmer" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">String Trimmer</div>
+                        <div class="item-meta"><span>📅 Completed: Jul 28, 2026</span><span>📚 Online Course</span><span>⏱️ 1.0h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status passed">✅ Completed</span>
+                        <button class="item-cert">📄 Get Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="in-progress">
+                    <img src="B5.png" alt="Ride-on Mower" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Ride-on Mower</div>
+                        <div class="item-meta"><span>📅 Started: Jul 20, 2026</span><span>🏫 In-Person</span><span>⏱️ 6.0h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status in-progress">🔄 In Progress (45%)</span>
+                        <button class="item-cert disabled">📄 Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="in-progress">
+                    <img src="A1.png" alt="EGO Theory" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">EGO Theory</div>
+                        <div class="item-meta"><span>📅 Started: Jul 15, 2026</span><span>📚 Curriculum</span><span>⏱️ 2.5h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status in-progress">🔄 In Progress (60%)</span>
+                        <button class="item-cert disabled">📄 Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="in-progress">
+                    <img src="A2.png" alt="Bronze" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Bronze</div>
+                        <div class="item-meta"><span>📅 Started: Jul 01, 2026</span><span>📚 Curriculum</span><span>⏱️ 4.0h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status in-progress">🔄 In Progress (80%)</span>
+                        <button class="item-cert disabled">📄 Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="not-started">
+                    <img src="A3.png" alt="Silver Prerequisites" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Silver Prerequisites</div>
+                        <div class="item-meta"><span>📅 Assigned: Aug 20, 2026</span><span>📚 Curriculum</span><span>⏱️ 3.0h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status not-started">⏳ Not Started</span>
+                        <button class="item-cert disabled">📄 Certificate</button>
+                    </div>
+                </div>
+                <div class="transcript-item" data-status="not-started">
+                    <img src="A4.png" alt="Silver School" class="item-image" loading="lazy" />
+                    <div class="item-info">
+                        <div class="item-title">Silver School</div>
+                        <div class="item-meta"><span>📅 Assigned: Aug 25, 2026</span><span>🏫 In-Person</span><span>⏱️ 8.0h</span><span>🇺🇸 English (US)</span></div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-status not-started">⏳ Not Started</span>
+                        <button class="item-cert disabled">📄 Certificate</button>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state" id="mtEmptyState">
+                <div class="empty-icon">📭</div>
+                <h3>No courses found</h3>
+                <p>Try adjusting your filters or search terms</p>
+            </div>
+            <div class="pagination">
+                <button disabled>‹ Previous</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>Next ›</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== PAGE: TRAINING CALENDAR ===== -->
+    <div class="page-container" id="page-training-calendar">
+        <main class="content-section" role="main" style="padding:0;">
+            <div class="app-container">
+                <aside class="sidebar">
+                    <div class="calendar-header">
+                        <span class="month-label" id="monthLabel">August 2026</span>
+                        <div class="nav-buttons">
+                            <button id="prevMonth" aria-label="Previous Month">‹</button>
+                            <button id="nextMonth" aria-label="Next Month">›</button>
+                        </div>
+                    </div>
+                    <button class="today-btn" id="todayBtn">📍 Today</button>
+                    <div class="calendar-grid">
+                        <div class="weekdays">
+                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        </div>
+                        <div class="days" id="daysGrid"></div>
+                    </div>
+                    <div class="legend">
+                        <span class="legend-item"><span class="dot"></span> Training Available</span>
+                        <span class="legend-item"><span class="dot today-dot"></span> Today</span>
+                    </div>
+                </aside>
+                <main class="main-content-calendar">
+                    <div class="date-info">
+                        <h2 id="selectedDateTitle">Select a Date to View Training</h2>
+                        <p class="subtitle" id="selectedDateSub">Click a date on the calendar to see scheduled training</p>
+                    </div>
+                    <div class="training-stats" id="trainingStats"></div>
+                    <div class="training-list" id="trainingList"></div>
+                </main>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== PAGE: HELP ===== -->
+    <div class="page-container" id="page-help">
+        <main class="content-section" role="main">
+            <div class="page-header">
+                <h1>Help Center</h1>
+                <div class="breadcrumb"><a href="#">Home</a> / Help Center</div>
+            </div>
+            <div style="background:var(--ego-white);border-radius:var(--radius-lg);padding:60px 50px;box-shadow:var(--shadow-sm);border:1px solid #eee;text-align:center;">
+                <div style="font-size:64px;margin-bottom:20px;">❓</div>
+                <h2 style="font-size:28px;font-weight:700;color:var(--ego-dark);margin-bottom:12px;">How can we help you?</h2>
+                <p style="color:var(--ego-text-light);font-size:16px;line-height:1.8;max-width:600px;margin:0 auto 30px;">Find answers to common questions, contact support, or browse our help resources.</p>
+                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+                    <a href="#" class="btn-primary">📖 Browse FAQs</a>
+                    <a href="#" class="btn-secondary">📧 Contact Support</a>
+                </div>
+            </div>
+            <div class="help-grid">
+                <div class="help-card">
+                    <div class="help-icon">📚</div>
+                    <h3>Getting Started</h3>
+                    <p>Learn the basics of EGO Academy</p>
+                </div>
+                <div class="help-card">
+                    <div class="help-icon">🎓</div>
+                    <h3>Training Guides</h3>
+                    <p>Step-by-step training instructions</p>
+                </div>
+                <div class="help-card">
+                    <div class="help-icon">🔧</div>
+                    <h3>Technical Support</h3>
+                    <p>Troubleshooting and technical help</p>
+                </div>
+                <div class="help-card">
+                    <div class="help-icon">📋</div>
+                    <h3>Account Management</h3>
+                    <p>Profile settings and account help</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer" role="contentinfo">
+        &copy; 2026 EGO ACADEMY · All rights reserved ·
+        <a href="#">Privacy Policy</a> ·
+        <a href="#">Help Center</a>
+    </footer>
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+        // ===== Navigation =====
+        const navLinks = document.querySelectorAll('.nav-menu a[data-page]');
+        const pageContainers = {
+            homepage: document.getElementById('page-homepage'),
+            'product-trainings': document.getElementById('page-product-trainings'),
+            'resource-center': document.getElementById('page-resource-center'),
+            'my-transcript': document.getElementById('page-my-transcript'),
+            'training-calendar': document.getElementById('page-training-calendar'),
+            help: document.getElementById('page-help')
+        };
+
+        function switchPage(pageId) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            document.querySelector(`.nav-menu a[data-page="${pageId}"]`)?.classList.add('active');
+            Object.keys(pageContainers).forEach(key => {
+                pageContainers[key].classList.toggle('active', key === pageId);
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (pageId === 'training-calendar') {
+                setTimeout(initCalendar, 100);
+            }
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchPage(this.dataset.page);
+            });
+        });
+
+        document.querySelectorAll('[data-page-link="product-trainings"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchPage('product-trainings');
+            });
+        });
+
+        // ===== Mobile Menu =====
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', function() {
+            const isOpen = navMenu.classList.toggle('open');
+            this.classList.toggle('active');
+            this.setAttribute('aria-expanded', isOpen);
+        });
+
+        // ===== Product Trainings Filter =====
+        const ptFilterBtns = document.querySelectorAll('#page-product-trainings .filter-btn');
+        const ptCards = document.querySelectorAll('#page-product-trainings .product-card');
+        const ptResultCount = document.getElementById('ptResultCount');
+        const ptEmptyState = document.getElementById('ptEmptyState');
+        const ptClearFilters = document.getElementById('ptClearFilters');
+        let ptCurrentFilter = 'all';
+
+        function filterPT() {
+            const query = document.getElementById('topSearchInput').value.trim().toLowerCase();
+            let visibleCount = 0;
+            ptCards.forEach(card => {
+                const type = card.dataset.type || '';
+                const status = card.dataset.status || '';
+                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('.card-description')?.textContent.toLowerCase() || '';
+                let filterMatch = true;
+                switch (ptCurrentFilter) {
+                    case 'curriculum':
+                        filterMatch = type === 'curriculum';
+                        break;
+                    case 'online':
+                        filterMatch = type === 'online';
+                        break;
+                    case 'inperson':
+                        filterMatch = type === 'inperson';
+                        break;
+                    case 'finished':
+                        filterMatch = status === 'finished';
+                        break;
+                    case 'progress':
+                        filterMatch = status === 'progress';
+                        break;
+                    default:
+                        filterMatch = true;
+                }
+                const searchMatch = query === '' || title.includes(query) || desc.includes(query);
+                const show = filterMatch && searchMatch;
+                card.style.display = show ? 'flex' : 'none';
+                if (show) visibleCount++;
+            });
+            ptResultCount.innerHTML = `<strong>${visibleCount}</strong> results found`;
+            ptEmptyState.classList.toggle('show', visibleCount === 0);
+        }
+
+        ptFilterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                ptFilterBtns.forEach(b => { b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false'); });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                ptCurrentFilter = this.dataset.filter;
+                filterPT();
+            });
+        });
+
+        ptClearFilters.addEventListener('click', function() {
+            document.getElementById('topSearchInput').value = '';
+            ptCurrentFilter = 'all';
+            ptFilterBtns.forEach(b => { b.classList.toggle('active', b.dataset.filter === 'all');
+                b.setAttribute('aria-selected', b.dataset.filter === 'all'); });
+            filterPT();
+        });
+
+        document.getElementById('topSearchInput').addEventListener('input', filterPT);
+
+        // ===== Resource Center Filter =====
+        const rcSearchInput = document.getElementById('rcSearchInput');
+        const rcSearchBtn = document.getElementById('rcSearchBtn');
+        const rcClearBtn = document.getElementById('rcClearBtn');
+        const rcResultCount = document.getElementById('rcResultCount');
+        const rcEmptyState = document.getElementById('rcEmptyState');
+        const rcClearFilters = document.getElementById('rcClearFilters');
+        const rcCards = document.querySelectorAll('#page-resource-center .resource-card');
+        const rcSidebarItems = document.querySelectorAll('#page-resource-center .sidebar-item');
+
+        let rcActiveFilters = { product: 'product-all', language: 'lang-all', type: 'type-all', mode: 'mode-all' };
+
+        function filterRC() {
+            const query = rcSearchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+            rcCards.forEach(card => {
+                const product = card.dataset.product || '';
+                const lang = card.dataset.lang || '';
+                const type = card.dataset.type || '';
+                const mode = card.dataset.mode || '';
+                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('.card-description')?.textContent.toLowerCase() || '';
+                const tag = card.querySelector('.card-tag')?.textContent.toLowerCase() || '';
+                const productMatch = rcActiveFilters.product === 'product-all' || product === rcActiveFilters.product;
+                const langMatch = rcActiveFilters.language === 'lang-all' || lang === rcActiveFilters.language;
+                const typeMatch = rcActiveFilters.type === 'type-all' || type === rcActiveFilters.type;
+                const modeMatch = rcActiveFilters.mode === 'mode-all' || mode === rcActiveFilters.mode;
+                const searchMatch = query === '' || title.includes(query) || desc.includes(query) || tag.includes(query);
+                const show = productMatch && langMatch && typeMatch && modeMatch && searchMatch;
+                card.style.display = show ? 'flex' : 'none';
+                if (show) visibleCount++;
+            });
+            rcResultCount.innerHTML = `<strong>${visibleCount}</strong> resources found`;
+            rcEmptyState.classList.toggle('show', visibleCount === 0);
+            rcClearBtn.classList.toggle('visible', rcSearchInput.value.trim().length > 0);
+        }
+
+        function updateRCSidebar(groupPrefix, activeValue) {
+            document.querySelectorAll(`#page-resource-center .sidebar-item[data-filter^="${groupPrefix}"]`).forEach(item => {
+                item.classList.toggle('active', item.dataset.filter === activeValue);
+            });
+        }
+
+        rcSidebarItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+                if (filter.startsWith('product-')) { rcActiveFilters.product = filter;
+                    updateRCSidebar('product', filter); } else if (filter.startsWith('lang-')) { rcActiveFilters
+                        .language = filter;
+                    updateRCSidebar('lang', filter); } else if (filter.startsWith('type-')) { rcActiveFilters.type =
+                        filter;
+                    updateRCSidebar('type', filter); } else if (filter.startsWith('mode-')) { rcActiveFilters.mode =
+                        filter;
+                    updateRCSidebar('mode', filter); }
+                filterRC();
+            });
+        });
+
+        rcSearchInput.addEventListener('input', filterRC);
+        rcSearchBtn.addEventListener('click', filterRC);
+        rcSearchInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') filterRC(); });
+        rcClearBtn.addEventListener('click', function() { rcSearchInput.value = '';
+            filterRC();
+            rcSearchInput.focus(); });
+        rcClearFilters.addEventListener('click', function() {
+            rcSearchInput.value = '';
+            rcActiveFilters = { product: 'product-all', language: 'lang-all', type: 'type-all', mode: 'mode-all' };
+            rcSidebarItems.forEach(item => {
+                if (item.dataset.filter === 'product-all' || item.dataset.filter === 'lang-all' || item
+                    .dataset.filter === 'type-all' || item.dataset.filter === 'mode-all') item.classList.add(
+                    'active');
+                else item.classList.remove('active');
+            });
+            filterRC();
+            rcSearchInput.focus();
+        });
+
+        // ===== My Transcript Filter =====
+        const mtSearchInput = document.getElementById('mtSearchInput');
+        const mtTabs = document.querySelectorAll('#page-my-transcript .tab-btn');
+        const mtItems = document.querySelectorAll('#page-my-transcript .transcript-item');
+        const mtEmptyState = document.getElementById('mtEmptyState');
+        let mtCurrentTab = 'all';
+
+        function filterMT() {
+            const query = mtSearchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+            mtItems.forEach(item => {
+                const status = item.dataset.status || '';
+                const title = item.querySelector('.item-title')?.textContent.toLowerCase() || '';
+                const tabMatch = mtCurrentTab === 'all' ||
+                    (mtCurrentTab === 'completed' && status === 'passed') ||
+                    (mtCurrentTab === 'inprogress' && status === 'in-progress') ||
+                    (mtCurrentTab === 'notstarted' && (status === 'not-started'));
+                const searchMatch = query === '' || title.includes(query);
+                const show = tabMatch && searchMatch;
+                item.style.display = show ? 'flex' : 'none';
+                if (show) visibleCount++;
+            });
+            mtEmptyState.classList.toggle('show', visibleCount === 0);
+        }
+
+        mtTabs.forEach(btn => {
+            btn.addEventListener('click', function() {
+                mtTabs.forEach(b => { b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false'); });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                mtCurrentTab = this.dataset.tab;
+                filterMT();
+            });
+        });
+        mtSearchInput.addEventListener('input', filterMT);
+
+        // ===== Sort Selects =====
+        function setupSort(selectId, gridId, titleSelector) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+            select.addEventListener('change', function() {
+                const sortBy = this.value;
+                const grid = document.getElementById(gridId);
+                const cards = Array.from(grid.querySelectorAll('.product-card, .resource-card, .transcript-item'));
+                cards.sort((a, b) => {
+                    const titleA = a.querySelector(titleSelector)?.textContent || '';
+                    const titleB = b.querySelector(titleSelector)?.textContent || '';
+                    return titleA.localeCompare(titleB);
+                });
+                if (sortBy === 'date' || sortBy === 'progress') cards.reverse();
+                cards.forEach(card => grid.appendChild(card));
+            });
+        }
+        setupSort('ptSortSelect', 'ptGrid', '.card-title');
+        setupSort('rcSortSelect', 'rcGrid', '.card-title');
+        setupSort('mtSortSelect', 'mtList', '.item-title');
+
+        // ===== Bookmark =====
+        document.querySelectorAll('.bookmark-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('saved');
+                this.textContent = this.classList.contains('saved') ? '★' : '☆';
+                this.style.color = this.classList.contains('saved') ? '#FFB300' : '#ccc';
+            });
+        });
+
+        // ===== Certificate =====
+        document.querySelectorAll('.item-cert').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.classList.contains('disabled')) {
+                    alert('⚠️ Certificate is not available for this course yet.');
+                } else {
+                    const title = this.closest('.transcript-item').querySelector('.item-title')?.textContent ||
+                        'Course';
+                    alert(`📄 Downloading certificate for: ${title}`);
+                }
+            });
+        });
+
+        // ===== Card Clicks =====
+        document.querySelectorAll('.course-item, .product-card, .resource-card, .transcript-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.closest('button')) return;
+                const title = this.querySelector('.title, .card-title, .item-title')?.textContent || 'Item';
+                alert(`📚 ${title}\n\nDetails would open here.`);
+            });
+        });
+
+        // ===== Export =====
+        document.getElementById('exportBtn')?.addEventListener('click', function() {
+            alert('📥 Transcript export as PDF would start here.');
+        });
+
+        // ===== Homepage Filter Buttons =====
+        document.querySelectorAll('#page-homepage .filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#page-homepage .filter-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+            });
+        });
+
+        // ===== Help Card Click =====
+        document.querySelectorAll('.help-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('h3')?.textContent || 'Help';
+                alert(`📚 ${title}\n\nHelp section would open here.`);
+            });
+        });
+
+        // ===== Top Search =====
+        document.querySelector('.nav-search button')?.addEventListener('click', function() {
+            const input = this.closest('.nav-search').querySelector('input');
+            const query = input.value.trim();
+            if (query) {
+                const activePage = document.querySelector('.page-container.active');
+                if (activePage) {
+                    const searchInput = activePage.querySelector('input[type="text"]');
+                    if (searchInput) {
+                        searchInput.value = query;
+                        searchInput.dispatchEvent(new Event('input'));
+                    }
+                }
+            } else {
+                input.focus();
+            }
+        });
+
+        // ===== Training Calendar =====
+        let currentYear = 2026;
+        let currentMonth = 7;
+        let selectedDate = null;
+
+        const trainingData = {
+            '2026-08-03': [{ title: 'EGO Single-Stage Snow Blower Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO String Trimmer Training', time: '13:00-15:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-05': [{ title: 'EGO Ride-on Mower Training', time: '10:00-12:00', instructor: 'EGO Trainer',
+                    type: 'Required' }],
+            '2026-08-07': [{ title: 'EGO Single-Stage Snow Blower Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO String Trimmer Training', time: '14:00-16:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-10': [{ title: 'EGO Ride-on Mower Training', time: '10:00-12:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO String Trimmer Training', time: '13:30-15:30',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-12': [{ title: 'EGO Single-Stage Snow Blower Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }],
+            '2026-08-14': [{ title: 'EGO Ride-on Mower Training', time: '10:00-12:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO Single-Stage Snow Blower Training', time: '14:00-16:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-17': [{ title: 'EGO String Trimmer Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO Ride-on Mower Training', time: '13:00-15:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-19': [{ title: 'EGO Single-Stage Snow Blower Training', time: '10:00-12:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO String Trimmer Training', time: '14:00-16:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-21': [{ title: 'EGO Ride-on Mower Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }],
+            '2026-08-24': [{ title: 'EGO String Trimmer Training', time: '10:00-12:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO Single-Stage Snow Blower Training', time: '14:00-16:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-26': [{ title: 'EGO Ride-on Mower Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }],
+            '2026-08-28': [{ title: 'EGO Single-Stage Snow Blower Training', time: '10:00-12:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO String Trimmer Training', time: '13:30-15:30',
+                    instructor: 'EGO Trainer', type: 'Elective' }],
+            '2026-08-31': [{ title: 'EGO Ride-on Mower Training', time: '09:00-11:00', instructor: 'EGO Trainer',
+                    type: 'Required' }, { title: 'EGO String Trimmer Training', time: '13:00-15:00',
+                    instructor: 'EGO Trainer', type: 'Elective' }]
+        };
+
+        function getDaysInMonth(year, month) { return new Date(year, month + 1, 0).getDate(); }
+
+        function getFirstDayOfMonth(year, month) { const d = new Date(year, month, 1).getDay(); return d === 0 ? 6 : d - 1; }
+
+        function formatDateKey(year, month, day) { return `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`; }
+
+        function hasTraining(year, month, day) { const key = formatDateKey(year, month, day); return trainingData[key] && trainingData[
+                key].length > 0; }
+
+        function getTrainingForDate(year, month, day) { const key = formatDateKey(year, month, day); return trainingData[key] ||
+                []; }
+
+        function isToday(year, month, day) { const today = new Date(); return today.getFullYear() === year && today.getMonth() ===
+                month && today.getDate() === day; }
+
+        function formatDateStandard(year, month, day) {
+            const dateObj = new Date(year, month - 1, day);
+            const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                'November', 'December'
+            ];
+            const weekday = weekdays[dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1];
+            const monthName = months[month - 1];
+            let suffix = 'th';
+            if (day === 1 || day === 21 || day === 31) suffix = 'st';
+            else if (day === 2 || day === 22) suffix = 'nd';
+            else if (day === 3 || day === 23) suffix = 'rd';
+            return `${weekday}, ${monthName} ${day}${suffix}, ${year}`;
+        }
+
+        function renderCalendar(year, month) {
+            const daysInMonth = getDaysInMonth(year, month);
+            const firstDay = getFirstDayOfMonth(year, month);
+            const prevMonthDays = getDaysInMonth(year, month - 1);
+            let html = '';
+            const startOffset = firstDay;
+            for (let i = startOffset - 1; i >= 0; i--) { const day = prevMonthDays - i;
+                html +=
+                    `<button class="day other-month" data-date="${formatDateKey(year, month - 1, day)}">${day}</button>`; }
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateKey = formatDateKey(year, month, day);
+                const isTodayClass = isToday(year, month, day) ? 'today' : '';
+                const hasTrainingClass = hasTraining(year, month, day) ? 'has-training' : '';
+                const selectedClass = (selectedDate === dateKey) ? 'selected' : '';
+                html +=
+                    `<button class="day ${isTodayClass} ${hasTrainingClass} ${selectedClass}" data-date="${dateKey}">${day}</button>`;
+            }
+            const totalCells = startOffset + daysInMonth;
+            const remainingCells = (7 - (totalCells % 7)) % 7;
+            for (let day = 1; day <= remainingCells; day++) { html +=
+                    `<button class="day other-month" data-date="${formatDateKey(year, month + 1, day)}">${day}</button>`; }
+            document.getElementById('daysGrid').innerHTML = html;
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                'October', 'November', 'December'
+            ];
+            document.getElementById('monthLabel').textContent = `${monthNames[month]} ${year}`;
+            document.querySelectorAll('.days .day:not(.other-month)').forEach(el => {
+                el.addEventListener('click', function() {
+                    const dateKey = this.dataset.date;
+                    if (dateKey) selectDate(dateKey);
+                });
+            });
+        }
+
+        function selectDate(dateKey) {
+            selectedDate = dateKey;
+            document.querySelectorAll('.days .day').forEach(el => { el.classList.remove('selected'); if (el.dataset.date ===
+                    dateKey) el.classList.add('selected'); });
+            const [year, month, day] = dateKey.split('-').map(Number);
+            const trainings = getTrainingForDate(year, month - 1, day);
+            const formattedDate = formatDateStandard(year, month, day);
+            document.getElementById('selectedDateTitle').textContent = `📅 ${formattedDate}`;
+            document.getElementById('selectedDateSub').textContent = trainings.length > 0 ?
+                `${trainings.length} training session${trainings.length > 1 ? 's' : ''} scheduled` :
+                'No training scheduled for this day';
+            const container = document.getElementById('trainingStats');
+            if (trainings.length === 0) { container.innerHTML = ''; } else {
+                const required = trainings.filter(t => t.type === 'Required').length;
+                const elective = trainings.filter(t => t.type === 'Elective').length;
+                container.innerHTML =
+                    `<span class="stat-chip">📚 <strong>${trainings.length}</strong> Total Sessions</span><span class="stat-chip">✅ <strong>${required}</strong> Required</span><span class="stat-chip">📖 <strong>${elective}</strong> Elective</span>`;
+            }
+            const listContainer = document.getElementById('trainingList');
+            if (trainings.length === 0) {
+                listContainer.innerHTML =
+                    `<div class="empty-state-calendar"><div class="icon">📭</div><h3>No Training Scheduled</h3><p>There are no training sessions on this day. Please select another date.</p></div>`;
+            } else {
+                let html = '';
+                trainings.forEach((t) => {
+                    const badgeClass = t.type === 'Required' ? 'required' : 'elective';
+                    const badgeColor = t.type === 'Required' ? 'var(--ego-green)' : '#e65100';
+                    const bgColor = t.type === 'Required' ? 'var(--ego-green-bg)' : '#fff3e0';
+                    html +=
+                        `<div class="training-card"><div class="info"><h3>${t.title}</h3><div class="meta"><span>🕐 ${t.time}</span><span>👨‍🏫 ${t.instructor}</span></div></div><span class="badge ${badgeClass}" style="background:${bgColor};color:${badgeColor};">${t.type}</span></div>`;
+                });
+                listContainer.innerHTML = html;
+            }
+        }
+
+        function goToPrevMonth() {
+            if (currentMonth === 0) { currentMonth = 11;
+                currentYear--; } else { currentMonth--; }
+            renderCalendar(currentYear, currentMonth);
+            autoSelectFirstTrainingDay();
+        }
+
+        function goToNextMonth() {
+            if (currentMonth === 11) { currentMonth = 0;
+                currentYear++; } else { currentMonth++; }
+            renderCalendar(currentYear, currentMonth);
+            autoSelectFirstTrainingDay();
+        }
+
+        function goToToday() {
+            const today = new Date();
+            currentYear = today.getFullYear();
+            currentMonth = today.getMonth();
+            renderCalendar(currentYear, currentMonth);
+            const todayKey = formatDateKey(currentYear, currentMonth, today.getDate());
+            if (hasTraining(currentYear, currentMonth, today.getDate())) selectDate(todayKey);
+            else autoSelectFirstTrainingDay();
+        }
+
+        function autoSelectFirstTrainingDay() {
+            const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+            let found = false;
+            for (let d = 1; d <= daysInMonth; d++) {
+                const key = formatDateKey(currentYear, currentMonth, d);
+                if (hasTraining(currentYear, currentMonth, d)) { selectDate(key);
+                    found = true; break; }
+            }
+            if (!found) {
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+                    'October', 'November', 'December'
+                ];
+                document.getElementById('selectedDateTitle').textContent = `📅 ${monthNames[currentMonth]} ${currentYear}`;
+                document.getElementById('selectedDateSub').textContent = 'No training scheduled this month';
+                document.getElementById('trainingStats').innerHTML = '';
+                document.getElementById('trainingList').innerHTML =
+                    `<div class="empty-state-calendar"><div class="icon">📅</div><h3>No Training This Month</h3><p>Please switch to another month to view training sessions.</p></div>`;
+                document.querySelectorAll('.days .day').forEach(el => el.classList.remove('selected'));
+            }
+        }
+
+        function initCalendar() {
+            renderCalendar(currentYear, currentMonth);
+            autoSelectFirstTrainingDay();
+            document.getElementById('prevMonth').addEventListener('click', goToPrevMonth);
+            document.getElementById('nextMonth').addEventListener('click', goToNextMonth);
+            document.getElementById('todayBtn').addEventListener('click', goToToday);
+        }
+
+        if (document.getElementById('page-training-calendar').classList.contains('active')) {
+            initCalendar();
+        }
+
+        console.log('✅ EGO Academy - All pages integrated successfully!');
+    </script>
+</body>
+</html>

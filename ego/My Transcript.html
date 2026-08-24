@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EGO ACADEMY · My Transcript</title>
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237CB342'/%3E%3C/svg%3E" type="image/x-icon" />
+
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --ego-green: #7CB342;
+            --ego-green-dark: #558B2F;
+            --ego-green-light: #C5E1A5;
+            --ego-green-bg: #f1f8e9;
+            --ego-gray: #b1b1b1;
+            --ego-dark: #1a1a1a;
+            --ego-text: #333333;
+            --ego-text-light: #666666;
+            --ego-bg: #f5f7f5;
+            --ego-white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-smooth: all 0.3s ease;
+        }
+
+        /* ===== Global Reset ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+            background: var(--ego-bg);
+            color: var(--ego-dark);
+            min-height: 100vh;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--ego-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--ego-green-light);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ego-green);
+        }
+
+        /* ===== Typography ===== */
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* ===== Top Navigation ===== */
+        .top-nav {
+            background: var(--ego-white);
+            border-bottom: 1px solid var(--ego-gray);
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .nav-logo {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--ego-dark);
+            font-size: 16px;
+            font-weight: 500;
+            padding: 6px 0;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            border-bottom-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        .nav-menu a.active {
+            border-bottom-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        /* ===== Search ===== */
+        .nav-search {
+            display: flex;
+            align-items: center;
+            background: var(--ego-bg);
+            border-radius: 24px;
+            padding: 4px 4px 4px 16px;
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-search:focus-within {
+            border-color: var(--ego-green);
+            background: var(--ego-white);
+            box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
+        }
+
+        .nav-search input {
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--ego-dark);
+            outline: none;
+            width: 180px;
+        }
+
+        .nav-search input::placeholder {
+            color: #aaa;
+        }
+
+        .nav-search button {
+            background: var(--ego-green);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-search button:hover {
+            background: var(--ego-green-dark);
+            transform: scale(1.02);
+        }
+
+        /* ===== Nav Right ===== */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-right .user-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--ego-dark);
+        }
+
+        .avatar-placeholder {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--ego-green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--ego-green-dark);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .avatar-placeholder:hover {
+            transform: scale(1.08);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== Mobile Menu Toggle ===== */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--ego-dark);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== Main Content ===== */
+        .content-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 24px 32px;
+        }
+
+        /* ===== Page Header ===== */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--ego-gray);
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ego-dark);
+        }
+
+        .page-header .breadcrumb {
+            font-size: 14px;
+            color: var(--ego-text-light);
+        }
+
+        .page-header .breadcrumb a {
+            color: var(--ego-green);
+            text-decoration: none;
+        }
+
+        .page-header .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-header .export-btn {
+            padding: 8px 20px;
+            background: var(--ego-white);
+            color: var(--ego-text);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .page-header .export-btn:hover {
+            border-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        /* ===== Stats Cards ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 18px 16px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ego-green-dark);
+            display: block;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            margin-top: 4px;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs-wrapper {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ego-text-light);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn:hover {
+            color: var(--ego-dark);
+        }
+
+        .tab-btn.active {
+            color: var(--ego-green-dark);
+            border-bottom-color: var(--ego-green);
+            font-weight: 600;
+        }
+
+        /* ===== Filter & Search ===== */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .filter-bar .search-box {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            background: var(--ego-white);
+            border-radius: 6px;
+            padding: 0 14px;
+            border: 1px solid #ddd;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-bar .search-box:focus-within {
+            border-color: var(--ego-green);
+            box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.12);
+        }
+
+        .filter-bar .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 8px;
+            font-size: 14px;
+            color: var(--ego-dark);
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .filter-bar .search-box .search-icon {
+            color: var(--ego-text-light);
+            font-size: 16px;
+        }
+
+        .filter-bar .filter-select {
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background: var(--ego-white);
+            color: var(--ego-dark);
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+            min-width: 140px;
+        }
+
+        .filter-bar .filter-select:focus {
+            border-color: var(--ego-green);
+        }
+
+        /* ===== Transcript List ===== */
+        .transcript-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .transcript-item {
+            background: var(--ego-white);
+            border-radius: var(--radius-md);
+            padding: 14px 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            cursor: pointer;
+            flex-wrap: wrap;
+        }
+
+        .transcript-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateX(4px);
+        }
+
+        .transcript-item .item-image {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            background: var(--ego-green-light);
+            flex-shrink: 0;
+            border: 1px solid #eee;
+        }
+
+        .transcript-item .item-info {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .transcript-item .item-info .item-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--ego-dark);
+        }
+
+        .transcript-item .item-info .item-meta {
+            font-size: 13px;
+            color: var(--ego-text-light);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .transcript-item .item-info .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .transcript-item .item-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .transcript-item .item-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .transcript-item .item-status.passed {
+            background: var(--ego-green-bg);
+            color: var(--ego-green-dark);
+        }
+
+        .transcript-item .item-status.failed {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .transcript-item .item-status.in-progress {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .transcript-item .item-status.not-started {
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        .transcript-item .item-cert {
+            color: var(--ego-green);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border: 1px solid var(--ego-green);
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+            background: transparent;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .transcript-item .item-cert:hover {
+            background: var(--ego-green);
+            color: #fff;
+        }
+
+        .transcript-item .item-cert.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #999;
+        }
+
+        .transcript-item .item-cert.disabled:hover {
+            background: transparent;
+            color: #999;
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            background: var(--ego-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .empty-state.show {
+            display: flex;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--ego-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--ego-text-light);
+            font-size: 15px;
+        }
+
+        /* ===== Pagination ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 32px 0;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: var(--ego-white);
+            color: var(--ego-text);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            min-height: 40px;
+        }
+
+        .pagination button:hover:not(:disabled):not(.active) {
+            border-color: var(--ego-green);
+            color: var(--ego-green-dark);
+        }
+
+        .pagination button.active {
+            background: var(--ego-green);
+            color: #fff;
+            border-color: var(--ego-green);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--ego-white);
+            border-top: 1px solid var(--ego-gray);
+            padding: 18px 24px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #999;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer a:hover {
+            color: var(--ego-green);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 820px) {
+            .top-nav {
+                padding: 12px 20px;
+            }
+            .nav-left {
+                gap: 16px;
+            }
+            .nav-menu {
+                gap: 16px;
+            }
+            .nav-menu a {
+                font-size: 15px;
+            }
+            .content-section {
+                padding: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+                padding: 12px 0;
+                border-top: 1px solid #eee;
+                margin-top: 8px;
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .nav-menu a {
+                font-size: 16px;
+                padding: 8px 0;
+                width: 100%;
+            }
+
+            .nav-search {
+                width: 100%;
+                order: 3;
+            }
+
+            .nav-search input {
+                width: 100%;
+            }
+
+            .nav-left {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-right {
+                margin-left: auto;
+            }
+
+            .top-nav {
+                padding: 10px 16px;
+                gap: 8px;
+            }
+
+            .content-section {
+                padding: 16px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .page-header h1 {
+                font-size: 22px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .stat-card .stat-number {
+                font-size: 24px;
+            }
+
+            .transcript-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .transcript-item .item-image {
+                width: 56px;
+                height: 56px;
+            }
+
+            .transcript-item .item-right {
+                width: 100%;
+                justify-content: flex-start;
+                margin-left: 0;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .filter-bar .search-box {
+                width: 100%;
+            }
+
+            .filter-bar .filter-select {
+                width: 100%;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+            }
+
+            .pagination button {
+                padding: 8px 14px;
+                min-height: 40px;
+                font-size: 13px;
+            }
+
+            .tabs-wrapper {
+                gap: 2px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .top-nav {
+                padding: 8px 12px;
+            }
+
+            .nav-logo {
+                height: 38px;
+            }
+
+            .avatar-placeholder {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            .nav-right .user-name {
+                font-size: 13px;
+            }
+
+            .content-section {
+                padding: 12px;
+            }
+
+            .page-header h1 {
+                font-size: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .stat-card {
+                padding: 14px 12px;
+            }
+
+            .stat-card .stat-number {
+                font-size: 20px;
+            }
+
+            .stat-card .stat-label {
+                font-size: 11px;
+            }
+
+            .footer {
+                font-size: 12px;
+                padding: 14px 16px;
+            }
+
+            .transcript-item {
+                padding: 12px 14px;
+            }
+
+            .transcript-item .item-image {
+                width: 48px;
+                height: 48px;
+            }
+
+            .transcript-item .item-info .item-title {
+                font-size: 14px;
+            }
+
+            .transcript-item .item-info .item-meta {
+                font-size: 12px;
+                gap: 8px;
+            }
+
+            .tab-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .page-header .export-btn {
+                font-size: 13px;
+                padding: 6px 16px;
+            }
+
+            .transcript-item .item-status {
+                font-size: 11px;
+                padding: 3px 10px;
+            }
+
+            .transcript-item .item-cert {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== Top Navigation Bar ===== -->
+    <header class="top-nav" role="banner">
+        <div class="nav-left">
+            <img src="LOGO.png" alt="EGO Academy Logo" class="nav-logo" />
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="navMenu" role="menubar">
+                <li role="none"><a href="#" role="menuitem">Homepage</a></li>
+                <li role="none"><a href="#" role="menuitem">Product trainings</a></li>
+                <li role="none"><a href="#" role="menuitem">Resource center</a></li>
+                <li role="none"><a href="#" role="menuitem" class="active">My transcript</a></li>
+                <li role="none"><a href="#" role="menuitem">Training Calendar</a></li>
+                <li role="none"><a href="#" role="menuitem">Help</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-right">
+            <div class="nav-search" role="search">
+                <input type="text" id="topSearchInput" placeholder="Search courses..." aria-label="Search courses" />
+                <button id="topSearchBtn" aria-label="Submit search">🔍</button>
+            </div>
+            <span class="user-name">EGO Support</span>
+            <span class="avatar-placeholder" role="img" aria-label="User avatar">E</span>
+        </div>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main class="content-section" role="main">
+
+        <!-- ===== Page Header ===== -->
+        <div class="page-header">
+            <h1>My Transcript</h1>
+            <div class="breadcrumb">
+                <a href="#">Home</a> / My Transcript
+            </div>
+            <button class="export-btn" id="exportBtn">📥 Export as PDF</button>
+        </div>
+
+        <!-- ===== Stats Cards ===== -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">9</span>
+                <span class="stat-label">Total Courses</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3</span>
+                <span class="stat-label">In Progress</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">2</span>
+                <span class="stat-label">Not Started</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Avg. Completion</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Certificates Earned</span>
+            </div>
+        </div>
+
+        <!-- ===== Tabs ===== -->
+        <div class="tabs-wrapper" role="tablist">
+            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="all">All</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="completed">✅ Completed</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="inprogress">🔄 In Progress</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="notstarted">⏳ Not Started</button>
+        </div>
+
+        <!-- ===== Filter & Search ===== -->
+        <div class="filter-bar">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="transcriptSearchInput" placeholder="Search by course name..." />
+            </div>
+            <select class="filter-select" id="sortSelect">
+                <option value="date">Sort by: Recent</option>
+                <option value="name">Sort by: Name</option>
+                <option value="progress">Sort by: Progress</option>
+            </select>
+        </div>
+
+        <!-- ===== Transcript List ===== -->
+        <div class="transcript-list" id="transcriptList">
+
+            <!-- Item 1: Snow Blower - Completed -->
+            <div class="transcript-item" data-status="passed">
+                <img src="B1.png" alt="Snow Blower" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Snow Blower</div>
+                    <div class="item-meta">
+                        <span>📅 Completed: Aug 15, 2026</span>
+                        <span>📚 Curriculum</span>
+                        <span>⏱️ 2.5h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status passed">✅ Completed</span>
+                    <button class="item-cert">📄 Get Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 2: Batteries & Chargers - Completed -->
+            <div class="transcript-item" data-status="passed">
+                <img src="B2.png" alt="Batteries & Chargers" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Batteries &amp; Chargers</div>
+                    <div class="item-meta">
+                        <span>📅 Completed: Aug 10, 2026</span>
+                        <span>📚 Curriculum</span>
+                        <span>⏱️ 1.5h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status passed">✅ Completed</span>
+                    <button class="item-cert">📄 Get Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 3: Leaf Blower - Completed -->
+            <div class="transcript-item" data-status="passed">
+                <img src="B3.png" alt="Leaf Blower" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Leaf Blower</div>
+                    <div class="item-meta">
+                        <span>📅 Completed: Aug 05, 2026</span>
+                        <span>📚 Online Course</span>
+                        <span>⏱️ 2.0h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status passed">✅ Completed</span>
+                    <button class="item-cert">📄 Get Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 4: String Trimmer - Completed -->
+            <div class="transcript-item" data-status="passed">
+                <img src="B4.png" alt="String Trimmer" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">String Trimmer</div>
+                    <div class="item-meta">
+                        <span>📅 Completed: Jul 28, 2026</span>
+                        <span>📚 Online Course</span>
+                        <span>⏱️ 1.0h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status passed">✅ Completed</span>
+                    <button class="item-cert">📄 Get Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 5: Ride-on Mower - In Progress -->
+            <div class="transcript-item" data-status="in-progress">
+                <img src="B5.png" alt="Ride-on Mower" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Ride-on Mower</div>
+                    <div class="item-meta">
+                        <span>📅 Started: Jul 20, 2026</span>
+                        <span>🏫 In-Person</span>
+                        <span>⏱️ 6.0h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status in-progress">🔄 In Progress (45%)</span>
+                    <button class="item-cert disabled">📄 Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 6: EGO Theory - In Progress -->
+            <div class="transcript-item" data-status="in-progress">
+                <img src="A1.png" alt="EGO Theory" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">EGO Theory</div>
+                    <div class="item-meta">
+                        <span>📅 Started: Jul 15, 2026</span>
+                        <span>📚 Curriculum</span>
+                        <span>⏱️ 2.5h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status in-progress">🔄 In Progress (60%)</span>
+                    <button class="item-cert disabled">📄 Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 7: Bronze - In Progress -->
+            <div class="transcript-item" data-status="in-progress">
+                <img src="A2.png" alt="Bronze" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Bronze</div>
+                    <div class="item-meta">
+                        <span>📅 Started: Jul 01, 2026</span>
+                        <span>📚 Curriculum</span>
+                        <span>⏱️ 4.0h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status in-progress">🔄 In Progress (80%)</span>
+                    <button class="item-cert disabled">📄 Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 8: Silver Prerequisites - Not Started -->
+            <div class="transcript-item" data-status="not-started">
+                <img src="A3.png" alt="Silver Prerequisites" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Silver Prerequisites</div>
+                    <div class="item-meta">
+                        <span>📅 Assigned: Aug 20, 2026</span>
+                        <span>📚 Curriculum</span>
+                        <span>⏱️ 3.0h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status not-started">⏳ Not Started</span>
+                    <button class="item-cert disabled">📄 Certificate</button>
+                </div>
+            </div>
+
+            <!-- Item 9: Silver School - Not Started -->
+            <div class="transcript-item" data-status="not-started">
+                <img src="A4.png" alt="Silver School" class="item-image" loading="lazy" />
+                <div class="item-info">
+                    <div class="item-title">Silver School</div>
+                    <div class="item-meta">
+                        <span>📅 Assigned: Aug 25, 2026</span>
+                        <span>🏫 In-Person</span>
+                        <span>⏱️ 8.0h</span>
+                        <span>🇺🇸 English (US)</span>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <span class="item-status not-started">⏳ Not Started</span>
+                    <button class="item-cert disabled">📄 Certificate</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== Empty State ===== -->
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon">📭</div>
+            <h3>No courses found</h3>
+            <p>Try adjusting your filters or search terms</p>
+        </div>
+
+        <!-- ===== Pagination ===== -->
+        <div class="pagination" id="pagination">
+            <button disabled>‹ Previous</button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>Next ›</button>
+        </div>
+
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer" role="contentinfo">
+        &copy; 2026 EGO ACADEMY · All rights reserved ·
+        <a href="#">Privacy Policy</a> ·
+        <a href="#">Help Center</a>
+    </footer>
+
+    <!-- ===== JavaScript ===== -->
+    <script>
+        // ============================================================
+        //  Mobile Menu Toggle
+        // ============================================================
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', function() {
+            const isOpen = navMenu.classList.toggle('open');
+            this.classList.toggle('active');
+            this.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 680) {
+                    navMenu.classList.remove('open');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        // ============================================================
+        //  Top Search
+        // ============================================================
+        const topSearchInput = document.getElementById('topSearchInput');
+        const topSearchBtn = document.getElementById('topSearchBtn');
+
+        topSearchBtn.addEventListener('click', function() {
+            const query = topSearchInput.value.trim();
+            if (query) {
+                document.getElementById('transcriptSearchInput').value = query;
+                filterTranscripts();
+            }
+        });
+
+        topSearchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                topSearchBtn.click();
+            }
+        });
+
+        // ============================================================
+        //  Tabs
+        // ============================================================
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        let currentTab = 'all';
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                tabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                currentTab = this.dataset.tab;
+                filterTranscripts();
+            });
+        });
+
+        // ============================================================
+        //  Filter & Search
+        // ============================================================
+        const transcriptSearchInput = document.getElementById('transcriptSearchInput');
+        const transcriptItems = document.querySelectorAll('.transcript-item');
+        const emptyState = document.getElementById('emptyState');
+        const sortSelect = document.getElementById('sortSelect');
+
+        function filterTranscripts() {
+            const query = transcriptSearchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            transcriptItems.forEach(item => {
+                const title = item.querySelector('.item-title')?.textContent.toLowerCase() || '';
+                const status = item.dataset.status || '';
+
+                const tabMatch = currentTab === 'all' ||
+                    (currentTab === 'completed' && (status === 'passed')) ||
+                    (currentTab === 'inprogress' && (status === 'in-progress')) ||
+                    (currentTab === 'notstarted' && (status === 'not-started'));
+
+                const searchMatch = query === '' || title.includes(query);
+
+                const show = tabMatch && searchMatch;
+                item.style.display = show ? 'flex' : 'none';
+                if (show) visibleCount++;
+            });
+
+            if (visibleCount === 0) {
+                emptyState.classList.add('show');
+            } else {
+                emptyState.classList.remove('show');
+            }
+        }
+
+        transcriptSearchInput.addEventListener('input', filterTranscripts);
+
+        // ============================================================
+        //  Sort
+        // ============================================================
+        sortSelect.addEventListener('change', function() {
+            const sortBy = this.value;
+            const list = document.getElementById('transcriptList');
+            const items = Array.from(list.querySelectorAll('.transcript-item'));
+
+            items.sort((a, b) => {
+                const titleA = a.querySelector('.item-title')?.textContent || '';
+                const titleB = b.querySelector('.item-title')?.textContent || '';
+
+                const dateA = a.querySelector('.item-meta span:first-child')?.textContent || '';
+                const dateB = b.querySelector('.item-meta span:first-child')?.textContent || '';
+
+                const progressA = a.querySelector('.item-status.in-progress')?.textContent || '';
+                const progressB = b.querySelector('.item-status.in-progress')?.textContent || '';
+
+                switch (sortBy) {
+                    case 'name':
+                        return titleA.localeCompare(titleB);
+                    case 'progress':
+                        const pA = parseInt(progressA.match(/\d+/)?.[0] || 0);
+                        const pB = parseInt(progressB.match(/\d+/)?.[0] || 0);
+                        return pB - pA;
+                    case 'date':
+                    default:
+                        return dateB.localeCompare(dateA);
+                }
+            });
+
+            items.forEach(item => list.appendChild(item));
+        });
+
+        // ============================================================
+        //  Export
+        // ============================================================
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            alert('📥 Transcript export as PDF would start here.');
+        });
+
+        // ============================================================
+        //  Certificate
+        // ============================================================
+        document.querySelectorAll('.item-cert').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.classList.contains('disabled')) {
+                    alert('⚠️ Certificate is not available for this course yet.');
+                } else {
+                    const title = this.closest('.transcript-item').querySelector('.item-title')?.textContent || 'Course';
+                    alert(`📄 Downloading certificate for: ${title}`);
+                }
+            });
+        });
+
+        // ============================================================
+        //  Transcript Item Click
+        // ============================================================
+        document.querySelectorAll('.transcript-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.querySelector('.item-title')?.textContent || 'Course';
+                alert(`📚 ${title}\n\nCourse details would open here.`);
+            });
+        });
+
+        // ============================================================
+        //  Pagination
+        // ============================================================
+        document.querySelectorAll('.pagination button:not(:disabled)').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!this.classList.contains('active')) {
+                    document.querySelectorAll('.pagination button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // ============================================================
+        //  Initial filter
+        // ============================================================
+        filterTranscripts();
+    </script>
+
+</body>
+</html>
